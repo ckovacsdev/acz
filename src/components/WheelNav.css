@@ -1,0 +1,93 @@
+.wheel-nav {
+  position: fixed;
+  top: 50%;
+  /* Items curve outward as they leave the middle; leave room so the far ones stay on screen. */
+  right: calc(var(--gutter) + 2.75rem);
+  z-index: 50;
+  display: none;
+
+  /* Colours for the default black background… */
+  --wheel-rest: var(--text);
+  --wheel-active: var(--pink);
+  --wheel-hover: var(--pink-soft);
+}
+
+/* …and for items sitting over the pink About page (set per item by WheelNav.tsx). */
+.wheel-nav__item[data-surface='pink'] {
+  --wheel-rest: rgb(0 0 0 / 0.72);
+  --wheel-active: var(--ink-on-pink);
+  --wheel-hover: var(--ink-on-pink);
+  /* A backing in the page's own pink: invisible, but it masks the dotted roses
+     wherever the wheel passes over them, so the labels never tangle with the dots. */
+  --wheel-backing: var(--pink-bg);
+}
+
+.wheel-nav ul {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each item is placed on the wheel's rim by WheelNav.tsx (transform + the custom
+   properties below); everything else about how it looks lives here. */
+.wheel-nav__item {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.15em 0.4em;
+  border-radius: 0.5em;
+  background: var(--wheel-backing, transparent);
+  font-size: 1.55rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+  text-decoration: none;
+  /* Near-white at rest, blending to pink as the item turns into the middle. Items further
+     from the middle fade their text only (not the whole item), so the backing stays solid. */
+  color: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--wheel-active) calc(var(--active, 0) * 100%), var(--wheel-rest))
+      calc(var(--opacity, 1) * 100%),
+    transparent
+  );
+  filter: blur(var(--blur, 0));
+  transform-origin: 100% 50%;
+  will-change: transform;
+  transition:
+    filter 0.2s ease,
+    background-color 0.08s linear,
+    color 0.08s linear;
+}
+
+.wheel-nav__item[aria-current] {
+  font-weight: 600;
+}
+
+.wheel-nav__item:hover,
+.wheel-nav__item:focus-visible {
+  filter: none;
+  color: var(--wheel-hover);
+  text-decoration: underline 1.5px;
+  text-underline-offset: 0.25em;
+}
+
+@media (min-width: 1100px) {
+  .wheel-nav {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wheel-nav {
+    animation: wheel-in 0.8s ease 1.9s both;
+  }
+}
+
+@keyframes wheel-in {
+  from {
+    opacity: 0;
+    translate: 1.5rem 0;
+  }
+}
