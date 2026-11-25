@@ -71,6 +71,24 @@ export function WheelNav() {
         // 1 when this item is in the middle, easing to 0 one step away.
         el.style.setProperty('--active', Math.max(0, 1 - dist).toFixed(3))
       })
+      matchSurfaces()
+    }
+
+    // Each item takes the colours of whatever section is directly behind it, so while
+    // the wheel straddles the black/pink edge every item stays readable.
+    const matchSurfaces = () => {
+      const surfaces = Array.from(
+        document.querySelectorAll<HTMLElement>('main [data-surface]'),
+        (el) => ({ rect: el.getBoundingClientRect(), surface: el.dataset.surface ?? 'dark' }),
+      )
+      itemRefs.current.forEach((el) => {
+        if (!el) return
+        const r = el.getBoundingClientRect()
+        const y = r.top + r.height / 2
+        const hit = surfaces.find((s) => s.rect.top <= y && s.rect.bottom > y)
+        const surface = hit?.surface ?? 'dark'
+        if (el.dataset.surface !== surface) el.dataset.surface = surface
+      })
     }
 
     const tick = (t: number) => {

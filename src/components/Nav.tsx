@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { SECTIONS } from '../sections'
 import { useActiveSection } from '../hooks/useActiveSection'
+import { useSurfaceAt } from '../hooks/useSurfaceAt'
 import { WheelNav } from './WheelNav'
 import './Nav.css'
 
@@ -14,6 +15,8 @@ export function Nav() {
   const active = useActiveSection(IDS) ?? 'top'
   const [open, setOpen] = useState(false)
   const toggleRef = useRef<HTMLButtonElement>(null)
+  // The button floats at the top of the screen; it turns black while over the pink About page.
+  const toggleSurface = useSurfaceAt(0.05)
 
   // While the menu card is open: Escape or scrolling closes it, and so does widening
   // the window to the wheel layout.
@@ -51,6 +54,7 @@ export function Nav() {
         ref={toggleRef}
         type="button"
         className="menu-toggle"
+        data-surface={toggleSurface}
         aria-expanded={open}
         aria-controls="menu-panel"
         aria-label={open ? 'Close menu' : 'Open menu'}

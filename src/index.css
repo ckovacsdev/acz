@@ -9,6 +9,9 @@
   --dots: rgb(236 92 154 / 0.55);
   --line: rgb(236 92 154 / 0.22);
   --glow: rgb(236 92 154 / 0.14);
+  /* The About page's pink and the ink used on it, sampled from the Canva design. */
+  --pink-bg: #f45a99;
+  --ink-on-pink: #000;
   --emboss-shade: rgb(150 90 110 / 0.18);
 
   /* Type */

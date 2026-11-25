@@ -16,15 +16,30 @@
   backdrop-filter: blur(8px);
   color: var(--pink);
   cursor: pointer;
+  /* Quick, so the button never sits pink-on-pink while crossing into the About page. */
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+    background-color 0.08s linear,
+    border-color 0.08s linear,
+    color 0.08s linear;
 }
 
 .menu-toggle:hover,
 .menu-toggle[aria-expanded='true'] {
   background: var(--pink);
   color: #000;
+}
+
+.menu-toggle[data-surface='pink'] {
+  border-color: var(--ink-on-pink);
+  /* Solid, so the dotted roses never show through the button. */
+  background: var(--pink-bg);
+  color: var(--ink-on-pink);
+}
+
+.menu-toggle[data-surface='pink']:hover,
+.menu-toggle[data-surface='pink'][aria-expanded='true'] {
+  background: var(--ink-on-pink);
+  color: var(--pink-bg);
 }
 
 .menu-toggle__bars {
