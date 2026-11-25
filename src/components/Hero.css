@@ -1,0 +1,221 @@
+.hero {
+  /* Doily width: as large as the screen allows while leaving room for the tagline. */
+  --plate: min(900px, 100%, (100svh - 190px) * 1.5625);
+
+  /* Two rows: the doily centred in all the space above, the tagline pinned to the
+     bottom of the first screen. */
+  display: grid;
+  grid-template-rows: 1fr auto;
+  justify-items: center;
+  min-height: 100svh;
+  /* Symmetric padding keeps the doily centred while clearing the side nav. */
+  padding: 2rem calc(var(--gutter) + var(--rail)) max(2rem, env(safe-area-inset-bottom));
+  background: var(--bg);
+}
+
+.hero__plate {
+  align-self: center;
+  display: grid;
+  place-items: center;
+  width: var(--plate);
+  container-type: inline-size;
+}
+
+.hero__doily {
+  grid-area: 1 / 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  /* A faint pink bloom so the paper sits on the black rather than being cut out of it. */
+  filter: drop-shadow(0 0 48px var(--glow));
+}
+
+.hero__doily--round {
+  display: none;
+}
+
+.hero__name {
+  grid-area: 1 / 1;
+  margin: 0;
+  padding: 0 0 0.12em;
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: 7.6cqi;
+  line-height: 1.1;
+  color: var(--pink);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.hero__tagline {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  width: min(100%, var(--plate) * 1.26);
+  margin: clamp(1rem, 3svh, 2rem) 0 0;
+  font-size: clamp(1rem, 1.45vw, 1.375rem);
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--pink);
+}
+
+/* Always underlined so the labels read as links before anyone hovers. */
+.hero__link {
+  padding-block: 0.35em;
+  color: inherit;
+  text-decoration: underline 1.5px;
+  text-decoration-color: rgb(236 92 154 / 0.45);
+  text-underline-offset: 0.32em;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+
+.hero__link:hover,
+.hero__link:focus-visible {
+  color: var(--pink-soft);
+  text-decoration-color: currentColor;
+}
+
+/* Dotted leader, as in the Canva design. The element itself handles the entrance;
+   its ::before holds the dots, which run toward whichever end is hovered. */
+.hero__leader {
+  flex: 1;
+  min-width: 2rem;
+  height: 4px;
+  /* Sit the dots near the text baseline, as in the Canva design. */
+  translate: 0 0.3em;
+}
+
+.hero__leader::before {
+  content: '';
+  display: block;
+  height: 100%;
+  background: radial-gradient(circle, currentColor 1.5px, transparent 2px) 0 50% / 9px 4px repeat-x;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The march is always attached but paused, so leaving a link just stops the dots
+     where they are instead of resetting anything. */
+  .hero__leader::before {
+    animation: march 0.45s linear infinite paused;
+  }
+
+  .hero__tagline:has(.hero__link--end:hover, .hero__link--end:focus-visible) .hero__leader::before {
+    animation-play-state: running;
+  }
+
+  .hero__tagline:has(.hero__link--start:hover, .hero__link--start:focus-visible)
+    .hero__leader::before {
+    animation-direction: reverse;
+    animation-play-state: running;
+  }
+
+  /* One entrance: the doily is set down, the name is written on, the tagline follows. */
+  .hero__plate {
+    animation: set-down 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .hero__name {
+    animation: write 1.5s cubic-bezier(0.55, 0.1, 0.35, 1) 0.6s both;
+  }
+
+  .hero__link {
+    animation: fade-in 0.6s ease 1.7s both;
+  }
+
+  .hero__leader {
+    animation: draw 0.8s cubic-bezier(0.3, 0.6, 0.2, 1) 1.8s both;
+  }
+}
+
+@keyframes march {
+  to {
+    background-position-x: 9px;
+  }
+}
+
+@keyframes set-down {
+  from {
+    opacity: 0;
+    translate: 0 -24px;
+    rotate: -5deg;
+    scale: 1.03;
+  }
+}
+
+@keyframes write {
+  from {
+    clip-path: inset(-20% 100% -20% 0);
+  }
+  to {
+    clip-path: inset(-20% -5% -20% 0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes draw {
+  from {
+    clip-path: inset(0 50%);
+  }
+  to {
+    clip-path: inset(0 0);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    --plate: clamp(260px, (100svh - 4.5rem - 190px) * 1.11, 100%);
+
+    /* Room for the floating Menu button. */
+    padding-top: 4.5rem;
+  }
+
+  .hero__doily--wide {
+    display: none;
+  }
+
+  .hero__doily--round {
+    display: block;
+  }
+
+  .hero__name {
+    font-size: 9.4cqi;
+    line-height: 1.05;
+  }
+
+  .hero__name span {
+    display: block;
+  }
+
+  .hero__name span:first-child {
+    font-size: 1.25em;
+  }
+
+  /* Phones: the same single line, scaled to the screen so it never wraps. */
+  .hero__tagline {
+    gap: 0.6rem;
+    width: var(--plate);
+    margin-top: 1.5rem;
+    font-size: clamp(0.8125rem, 3.9vw, 0.9375rem);
+  }
+
+  .hero__leader {
+    min-width: 1rem;
+    translate: 0 0.25em;
+  }
+
+  .hero__leader::before {
+    background-size: 7px 4px;
+  }
+
+  .hero__link:active {
+    color: var(--pink-soft);
+  }
+}
