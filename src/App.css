@@ -54,6 +54,14 @@
   pointer-events: none;
 }
 
+/* The same edge along a section's bottom, scalloping down into what follows. */
+.sheet-edge--bottom {
+  top: auto;
+  bottom: calc(var(--scallop) * -1);
+  z-index: 1;
+  scale: 1 -1;
+}
+
 .section {
   max-width: calc(var(--page-max) + 2 * var(--rail));
   min-height: 80vh;
