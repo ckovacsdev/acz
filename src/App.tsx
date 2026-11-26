@@ -4,6 +4,7 @@ import { About } from './components/About'
 import { Campaigns } from './components/Campaigns'
 import { Fanpages } from './components/Fanpages'
 import { Activations } from './components/Activations'
+import { Tours } from './components/Tours'
 import { SECTIONS } from './sections'
 import { useInPageLinks } from './hooks/useInPageLinks'
 import { useCoverStack } from './hooks/useCoverStack'
@@ -36,9 +37,10 @@ function App() {
         {/* These carry straight on from Campaigns on the same cream, with no sheet effect. */}
         <Fanpages />
         <Activations />
+        <Tours />
 
         {/* Placeholder sections so the nav has somewhere to go. Each gets designed next. */}
-        {SECTIONS.filter((s) => !['about', 'work', 'fanpages', 'activations'].includes(s.id)).map((s) => (
+        {SECTIONS.filter((s) => !['about', 'work', 'fanpages', 'activations', 'tours'].includes(s.id)).map((s) => (
           <section key={s.id} id={s.id} className="section" aria-labelledby={`${s.id}-title`}>
             <h2 id={`${s.id}-title`} className="section__title">
               {s.label}

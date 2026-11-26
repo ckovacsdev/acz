@@ -1,0 +1,75 @@
+/* Carries straight on from Activations: same cream, no edge, a modest top gap. */
+.tours {
+  padding: clamp(0.5rem, 2vw, 1.5rem) calc(var(--gutter) + var(--rail)) clamp(4.5rem, 8vw, 7rem);
+  background: var(--cream);
+  color: var(--ink-on-pink);
+}
+
+.tours__title {
+  margin: 0 0 clamp(2rem, 4vw, 3.25rem);
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  line-height: 1.05;
+  text-align: center;
+}
+
+/* ---------- The reel ---------- */
+
+.tours__reel {
+  /* One poster plus the gap after it: the unit both rows move by. */
+  --tile: clamp(8.5rem, 16vw, 14rem);
+  --gap: clamp(0.6rem, 1.1vw, 0.9rem);
+  --step: calc(var(--tile) + var(--gap));
+  --set: 5; /* posters per row */
+
+  display: grid;
+  gap: var(--gap);
+  max-width: 76rem;
+  margin: 0 auto;
+  overflow: hidden;
+  /* Posters fade in and out at the edges rather than being cut off. */
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.tours__track {
+  display: flex;
+  gap: var(--gap);
+  width: max-content;
+}
+
+/* Brick offset: the second row starts half a poster over, so each top poster's edges sit
+   over the centres of the two below it. */
+.tours__row[data-row='1'] .tours__track {
+  margin-left: calc(var(--step) / -2);
+}
+
+.tours__poster {
+  display: block;
+  flex: none;
+  width: var(--tile);
+  height: auto;
+  aspect-ratio: 0.86;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  background: rgb(0 0 0 / 0.06);
+}
+
+/* The newsreel: both rows slide left at the same speed (so the brick offset holds),
+   moving exactly one set of posters per loop so the repeat is seamless. Hovering pauses
+   it for a closer look. */
+@media (prefers-reduced-motion: no-preference) {
+  .tours__track {
+    animation: tours-reel 45s linear infinite;
+  }
+
+  .tours__reel:hover .tours__track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes tours-reel {
+  to {
+    translate: calc(var(--step) * var(--set) * -1) 0;
+  }
+}
