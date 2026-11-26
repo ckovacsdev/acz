@@ -2,6 +2,8 @@
 export const SECTIONS = [
   { id: 'about', label: 'About', hint: 'the short version' },
   { id: 'work', label: 'Campaigns', hint: 'releases I’ve worked on' },
+  { id: 'fanpages', label: 'Fanpages', hint: 'fan accounts & results' },
+  { id: 'activations', label: 'Activations', hint: 'fan events & experiences' },
   { id: 'experience', label: 'Experience', hint: 'where I’ve worked' },
   { id: 'contact', label: 'Contact', hint: 'say hello' },
 ] as const

@@ -1,0 +1,223 @@
+/* Continues straight on from Campaigns: same cream, no edge, a modest top gap. */
+.fanpages {
+  container-type: inline-size;
+  padding: clamp(0.5rem, 2vw, 1.5rem) calc(var(--gutter) + var(--rail)) clamp(4.5rem, 8vw, 7rem);
+  background: var(--cream);
+  color: var(--ink-on-pink);
+}
+
+.fanpages__title {
+  margin: 0;
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  line-height: 1.05;
+  text-align: center;
+}
+
+/* The results line, with thin rules in place of the Canva's "|" characters. Narrower
+   screens get two even rows of three, with rules only between items in the same row. */
+.fanpages__stats {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: center;
+  row-gap: 0.6rem;
+  margin: clamp(1.25rem, 2.5vw, 2rem) auto clamp(2.5rem, 4.5vw, 3.75rem);
+  font-size: clamp(1rem, 4vw, 1.25rem);
+  line-height: 1.2;
+  text-align: center;
+}
+
+.fanpages__stat {
+  padding-inline: clamp(0.6rem, 2.5vw, 1.25rem);
+  border-left: 1.5px solid rgb(0 0 0 / 0.35);
+}
+
+.fanpages__stat:nth-child(3n + 1) {
+  border-left: 0;
+}
+
+@container (min-width: 900px) {
+  .fanpages__stats {
+    grid-template-columns: repeat(6, auto);
+    font-size: clamp(1.125rem, 1.6vw, 1.5rem);
+  }
+
+  .fanpages__stat:nth-child(3n + 1) {
+    border-left: 1.5px solid rgb(0 0 0 / 0.35);
+  }
+
+  .fanpages__stat:first-child {
+    border-left: 0;
+  }
+}
+
+.fanpages__stat dd {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.fanpages__value {
+  font-weight: 600;
+}
+
+/* "AER", with a small tooltip spelling it out. */
+.fanpages__tip {
+  position: relative;
+  text-decoration: underline dotted 1.5px;
+  text-underline-offset: 0.2em;
+  cursor: help;
+}
+
+.fanpages__tip:focus-visible {
+  outline: 2px solid var(--ink-on-pink);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.fanpages__tip-text {
+  position: absolute;
+  /* Anchored to the right: AER is always the last item on its row, so a centred bubble
+     could run off the right edge of a phone screen. */
+  bottom: calc(100% + 0.6rem);
+  right: -0.4rem;
+  z-index: 5;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.5rem;
+  background: var(--ink-on-pink);
+  color: var(--cream);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  translate: 0 4px;
+  transition:
+    opacity 0.15s ease,
+    translate 0.15s ease;
+}
+
+/* Little pointer under the bubble. */
+.fanpages__tip-text::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 1rem;
+  border: 6px solid transparent;
+  border-top-color: var(--ink-on-pink);
+}
+
+.fanpages__tip:hover .fanpages__tip-text,
+.fanpages__tip:focus .fanpages__tip-text {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* ---------- Phones ---------- */
+
+.fanpages__phones {
+  --phone-w: 9.5rem;
+
+  display: flex;
+  gap: clamp(1rem, 2.2vw, 1.75rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Wide: all seven in one row. */
+@container (min-width: 860px) {
+  .fanpages__phones {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+}
+
+/* Medium: rows of four and three, centred. */
+@container (min-width: 520px) and (max-width: 859.98px) {
+  .fanpages__phones {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 2rem;
+  }
+
+  .fanpage {
+    width: calc((100% - 3 * clamp(1rem, 2.2vw, 1.75rem)) / 4);
+  }
+}
+
+/* Narrow: a sideways strip running edge to edge, snapping phone by phone. */
+@container (max-width: 519.98px) {
+  .fanpages__phones {
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0.5rem var(--gutter) 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+
+  .fanpages__phones::-webkit-scrollbar {
+    display: none;
+  }
+
+  .fanpage {
+    flex: none;
+    width: var(--phone-w);
+    scroll-snap-align: start;
+  }
+}
+
+.fanpage {
+  min-width: 0;
+  text-align: center;
+}
+
+/* A phone drawn in CSS: slim black bezel, rounded screen and side buttons. */
+.phone {
+  position: relative;
+  aspect-ratio: 211 / 417;
+  padding: 3.5%;
+  border-radius: 16% / 8.1%;
+  background: #000;
+}
+
+.phone::before,
+.phone::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  border-radius: 2px;
+  background: #000;
+}
+
+/* Volume (left) and power (right) buttons. */
+.phone::before {
+  left: -2px;
+  top: 20%;
+  height: 12%;
+}
+
+.phone::after {
+  right: -2px;
+  top: 24%;
+  height: 16%;
+}
+
+.phone__screen {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Follows the frame's curve, less the slimmer bezel. */
+  border-radius: 13.5% / 6.6%;
+  background: rgb(255 255 255 / 0.1);
+}
+
+.fanpage__artist {
+  margin: 0.85rem 0 0;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.2;
+  text-wrap: balance;
+}

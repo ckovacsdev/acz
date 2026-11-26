@@ -27,6 +27,11 @@
 .cover-stack > :not(:last-child) {
   position: sticky;
   top: var(--stick-top, 0);
+  /* Covered sheets all end on the same (often fractional) pixel as the top one, and their
+     edges blend through as a hairline. Trimming 3px off their bottoms avoids that; it's
+     never visible, because the next sheet's scalloped edge covers it. The top is left
+     open so each sheet's own scalloped edge isn't cut off. */
+  clip-path: inset(calc(var(--scallop) * -2) 0 3px 0);
 }
 
 .cover-stack > :last-child {

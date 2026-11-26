@@ -1,0 +1,177 @@
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import FlipCard from './FlipCard'
+import './Activations.css'
+
+// Photo collages live in public/activations/.
+const ACTIVATIONS = [
+  {
+    title: '‘eternal sunshine: deluxe’ Short Film Screenings',
+    image: 'eternal-sunshine-screenings',
+    alt: 'Collage from the screenings: a theater marquee for “Brighter Days Ahead”, merch and check-in tables, ‘eternal sunshine’ popcorn, a full screening room and fans with the film’s poster.',
+    body: [
+      'Exclusive screenings of Ariana Grande’s 30-minute short film for thousands of fans in New York, LA, Chicago and Boca Raton. ‘eternal sunshine’ themed decor was shipped nationwide while maintaining close communication with all theater staff to make sure each event ran smoothly. Theaters sold ‘eternal sunshine’ branded popcorn as well as the artist’s official merch.',
+      'Fans were methodically checked in and given commemorative movie tickets, wristbands and postcards, and photographed with permission to be featured on official Ariana fan pages.',
+    ],
+  },
+  {
+    title: 'Cynthia Erivo Fan Album Listening Party',
+    image: 'cynthia-erivo-listening-party',
+    alt: 'Collage from the listening party: the ‘I Forgive You’ artwork on a video wall and backdrop, a dimly lit lounge, a crowd of fans and a signature drinks menu with champagne.',
+    body: [
+      'An invite-only early listening event for Cynthia’s album ‘I Forgive You’ for her top fans at Republic Studios. The space was completely transformed to be chic, dimly lit and intimate.',
+      'Dinner and drinks were served, and fans listened to the entire album alongside Cynthia before a meet and greet with photos.',
+    ],
+  },
+]
+
+const FlipIcon = () => (
+  <svg className="activation__cue-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M3.5 12a8.5 8.5 0 0 1 14.6-5.9L20.5 8.5" />
+    <path d="M20.5 3.5v5h-5" />
+    <path d="M20.5 12a8.5 8.5 0 0 1-14.6 5.9L3.5 15.5" />
+    <path d="M3.5 20.5v-5h5" />
+  </svg>
+)
+
+/** "Click to …" on devices with a mouse, "Tap to …" on touch screens. */
+const Cue = ({ action }: { action: string }) => (
+  <span className="activation__cue" aria-hidden="true">
+    <FlipIcon />
+    <span className="activation__cue-fine">Click {action}</span>
+    <span className="activation__cue-coarse">Tap {action}</span>
+  </span>
+)
+
+export function Activations() {
+  // The card faces are absolutely positioned, so a card can't size itself. Measure what each
+  // face needs (everything except the flexible spacer) and size each card to its taller
+  // face. Cards that share a row (two columns on desktop) take the row's tallest, so they
+  // stay level; stacked on phones, each card keeps its own height.
+  const faceRefs = useRef<(HTMLDivElement | null)[]>([])
+  const listRef = useRef<HTMLDivElement>(null)
+  const [heights, setHeights] = useState<number[]>(() => ACTIVATIONS.map(() => 520))
+
+  useLayoutEffect(() => {
+    const faces = faceRefs.current.filter((el): el is HTMLDivElement => !!el)
+    const px = (v: string) => parseFloat(v) || 0
+
+    const need = (face: HTMLElement) => {
+      const cs = getComputedStyle(face)
+      let total = px(cs.paddingTop) + px(cs.paddingBottom)
+      for (const child of Array.from(face.children) as HTMLElement[]) {
+        if (child.classList.contains('activation__spacer')) continue
+        const c = getComputedStyle(child)
+        total += child.offsetHeight + px(c.marginTop) + px(c.marginBottom)
+      }
+      return Math.ceil(total)
+    }
+
+    const measure = () => {
+      const own = ACTIVATIONS.map((_, i) =>
+        Math.max(need(faceRefs.current[i * 2]!), need(faceRefs.current[i * 2 + 1]!)),
+      )
+      const articles = Array.from(listRef.current?.children ?? []) as HTMLElement[]
+      const next = own.map((h, i) => {
+        const row = articles[i]?.offsetTop
+        return Math.max(h, ...own.filter((_, j) => articles[j]?.offsetTop === row))
+      })
+      setHeights((prev) => (prev.every((h, i) => h === next[i]) ? prev : next))
+    }
+
+    measure()
+    // Watch the content too: the faces themselves are pinned to the card's height, so text
+    // reflowing inside them (e.g. once the web fonts load) wouldn't otherwise be noticed.
+    const ro = new ResizeObserver(measure)
+    faces.forEach((el) => {
+      ro.observe(el)
+      Array.from(el.children).forEach((child) => ro.observe(child))
+    })
+    return () => ro.disconnect()
+  }, [])
+
+  // A small "peek" wobble the first time each card scrolls into view, hinting that it turns.
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const cards = Array.from(listRef.current?.querySelectorAll<HTMLElement>('.activation') ?? [])
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return
+          e.target.classList.add('activation--peek')
+          io.unobserve(e.target)
+        })
+      },
+      { threshold: 0.6 },
+    )
+    cards.forEach((c) => io.observe(c))
+    return () => io.disconnect()
+  }, [])
+
+  return (
+    <section
+      id="activations"
+      className="activations"
+      data-surface="cream"
+      aria-labelledby="activations-title"
+    >
+      <h2 id="activations-title" className="activations__title">
+        Fandom Activations
+      </h2>
+
+      <div className="activations__list" ref={listRef}>
+        {ACTIVATIONS.map((a, i) => (
+          <article key={a.image} className="activation">
+            <FlipCard
+              className="activation__card"
+              ariaLabel={`${a.title}: show or hide the details`}
+              width={2000}
+              height={heights[i]}
+              radius={18}
+              background="#000"
+              color="var(--cream)"
+              tiltMax={6}
+              glareOpacity={0.14}
+              hoverScale={1.015}
+              shadowOpacity={0.22}
+              front={
+                <div
+                  className="activation__face activation__face--front"
+                  ref={(el) => void (faceRefs.current[i * 2] = el)}
+                >
+                  <img
+                    className="activation__image"
+                    src={`/activations/${a.image}.jpg`}
+                    alt={a.alt}
+                    width={800}
+                    height={540}
+                    loading="lazy"
+                    decoding="async"
+                    draggable={false}
+                  />
+                  <h3 className="activation__title">{a.title}</h3>
+                  <span className="activation__spacer" aria-hidden="true" />
+                  <Cue action="to read more" />
+                </div>
+              }
+              back={
+                <div
+                  className="activation__face activation__face--back"
+                  ref={(el) => void (faceRefs.current[i * 2 + 1] = el)}
+                >
+                  <h3 className="activation__title">{a.title}</h3>
+                  {a.body.map((p) => (
+                    <p key={p.slice(0, 24)} className="activation__text">
+                      {p}
+                    </p>
+                  ))}
+                  <span className="activation__spacer" aria-hidden="true" />
+                  <Cue action="to see photos" />
+                </div>
+              }
+            />
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
