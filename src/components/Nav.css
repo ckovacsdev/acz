@@ -29,15 +29,19 @@
   color: #000;
 }
 
-.menu-toggle[data-surface='pink'] {
+.menu-toggle:is([data-surface='pink'], [data-surface='cream']) {
   border-color: var(--ink-on-pink);
-  /* Solid, so the dotted roses never show through the button. */
+  /* Solid, so the dotted roses (or cover art) never show through the button. */
   background: var(--pink-bg);
   color: var(--ink-on-pink);
 }
 
-.menu-toggle[data-surface='pink']:hover,
-.menu-toggle[data-surface='pink'][aria-expanded='true'] {
+.menu-toggle[data-surface='cream'] {
+  background: var(--cream);
+}
+
+.menu-toggle:is([data-surface='pink'], [data-surface='cream']):hover,
+.menu-toggle:is([data-surface='pink'], [data-surface='cream'])[aria-expanded='true'] {
   background: var(--ink-on-pink);
   color: var(--pink-bg);
 }

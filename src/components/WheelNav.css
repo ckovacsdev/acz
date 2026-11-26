@@ -12,14 +12,23 @@
   --wheel-hover: var(--pink-soft);
 }
 
-/* …and for items sitting over the pink About page (set per item by WheelNav.tsx). */
-.wheel-nav__item[data-surface='pink'] {
+/* …and for items sitting over the pink About or cream Campaigns pages (set per item by
+   WheelNav.tsx). */
+.wheel-nav__item:is([data-surface='pink'], [data-surface='cream']) {
   --wheel-rest: rgb(0 0 0 / 0.72);
   --wheel-active: var(--ink-on-pink);
   --wheel-hover: var(--ink-on-pink);
   /* A backing in the page's own pink: invisible, but it masks the dotted roses
      wherever the wheel passes over them, so the labels never tangle with the dots. */
   --wheel-backing: var(--pink-bg);
+}
+
+/* On cream, the current item turns pink as it does over the black sections; the rest stay
+   black, since the near-white used over black wouldn't show on cream. */
+.wheel-nav__item[data-surface='cream'] {
+  --wheel-backing: var(--cream);
+  --wheel-active: var(--pink);
+  --wheel-hover: var(--pink);
 }
 
 .wheel-nav ul {

@@ -16,6 +16,44 @@
   translate: 0 0;
 }
 
+/* Landing → About → Campaigns: each section pins in place and the next, layered above it,
+   slides up over it like a sheet laid on top. useCoverStack sets each one's --stick-top
+   (0, or negative for sections taller than the screen) and stacking order. Once the last
+   one has covered the rest, the wrapper ends and the page scrolls normally again. */
+.cover-stack {
+  position: relative;
+}
+
+.cover-stack > :not(:last-child) {
+  position: sticky;
+  top: var(--stick-top, 0);
+  /* Covered sheets all end on the same (often fractional) pixel as the top one, and their
+     edges blend through as a hairline. Trimming 3px off their bottoms avoids that; it's
+     never visible, because the next sheet's scalloped edge covers it. The top is left
+     open so each sheet's own scalloped edge isn't cut off. */
+  clip-path: inset(calc(var(--scallop) * -2) 0 3px 0);
+}
+
+.cover-stack > :last-child {
+  position: relative;
+}
+
+/* The scalloped, doily-style top edge each sheet lays over the one before it. */
+.sheet-edge {
+  position: absolute;
+  top: calc(var(--scallop) * -1);
+  left: 0;
+  right: 0;
+  height: var(--scallop);
+  background: radial-gradient(
+      circle at 50% 100%,
+      var(--edge-color) calc(var(--scallop) - 0.5px),
+      transparent var(--scallop)
+    )
+    50% 0 / calc(var(--scallop) * 2) var(--scallop) repeat-x;
+  pointer-events: none;
+}
+
 .section {
   max-width: calc(var(--page-max) + 2 * var(--rail));
   min-height: 80vh;
@@ -47,4 +85,9 @@
 
 .footer p {
   margin: 0;
+}
+
+/* Sections receive focus when a nav link jumps to them; no ring for that. */
+[tabindex='-1']:focus {
+  outline: none;
 }

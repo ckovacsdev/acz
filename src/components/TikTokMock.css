@@ -1,0 +1,169 @@
+/* Sits where the other cards show their collage, in the same shape. */
+.tiktok {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
+  width: 100%;
+  aspect-ratio: 1.45;
+  padding: 0 4%;
+  background: radial-gradient(ellipse at 50% 60%, #26131b 0%, #000 70%);
+  overflow: hidden;
+}
+
+.tiktok__phone {
+  position: relative;
+  /* Belt and braces with the hidden-face rule in Activations.css: never show through the
+     back of a flipped card. */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  flex: none;
+  width: 30%;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border: 2px solid #1b1b1b;
+  border-radius: 9% / 5%;
+  background: #000;
+  box-shadow: 0 10px 24px rgb(0 0 0 / 0.55);
+  container-type: inline-size;
+}
+
+/* A slight fan: the middle phone forward, the outer two tilted back. */
+.tiktok__phone[data-pos='0'] {
+  rotate: -5deg;
+  translate: 8% 4%;
+}
+
+.tiktok__phone[data-pos='1'] {
+  z-index: 1;
+  scale: 1.1;
+}
+
+.tiktok__phone[data-pos='2'] {
+  rotate: 5deg;
+  translate: -8% 4%;
+}
+
+/* The blurred fill behind a landscape clip, and the clip itself. */
+.tiktok__fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(10px) brightness(0.5) saturate(1.2);
+  scale: 1.25;
+}
+
+.tiktok__video {
+  position: absolute;
+  top: 46%;
+  left: 0;
+  width: 100%;
+  height: auto;
+  translate: 0 -50%;
+}
+
+/* ---------- Interface overlay ---------- */
+
+.tiktok__ui {
+  position: absolute;
+  inset: 0;
+  color: #fff;
+  font-size: 7cqi;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.tiktok__tabs {
+  position: absolute;
+  top: 7%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1.1em;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.tiktok__tab--on {
+  opacity: 1;
+  text-decoration: underline 0.18em;
+  text-underline-offset: 0.45em;
+}
+
+.tiktok__actions {
+  position: absolute;
+  right: 4%;
+  bottom: 13%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9cqi;
+}
+
+.tiktok__avatar {
+  width: 14cqi;
+  height: 14cqi;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink), #7d2a52);
+}
+
+.tiktok__icon {
+  width: 13cqi;
+  height: 13cqi;
+  fill: #fff;
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.5));
+}
+
+.tiktok__meta {
+  position: absolute;
+  left: 6%;
+  right: 26%;
+  bottom: 8%;
+  display: grid;
+  gap: 4cqi;
+}
+
+.tiktok__bar {
+  display: block;
+  height: 4cqi;
+  border-radius: 2cqi;
+  background: rgb(255 255 255 / 0.75);
+}
+
+.tiktok__bar--handle {
+  width: 55%;
+  background: #fff;
+}
+
+.tiktok__sound {
+  display: flex;
+  align-items: center;
+  gap: 3cqi;
+}
+
+.tiktok__sound svg {
+  width: 9cqi;
+  height: 9cqi;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.2;
+}
+
+.tiktok__bar--sound {
+  flex: 1;
+  height: 3cqi;
+  background: rgb(255 255 255 / 0.55);
+}
+
+.tiktok__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2.5cqi;
+  background: linear-gradient(90deg, #fff 0 38%, rgb(255 255 255 / 0.3) 38%);
+}

@@ -12,9 +12,8 @@ const FACTS = [
 export function About() {
   return (
     <section id="about" className="about" data-surface="pink" aria-labelledby="about-title">
-      {/* Doily-style scalloped trim where the pink meets the black, above and below. */}
-      <span className="about__edge about__edge--top" aria-hidden="true" />
-      <span className="about__edge about__edge--bottom" aria-hidden="true" />
+      {/* Doily-style scalloped trim where the pink sheet meets the black landing. */}
+      <span className="sheet-edge" aria-hidden="true" />
       <DotFlower className="about__flower about__flower--top" />
       <DotFlower className="about__flower about__flower--bottom" />
 
