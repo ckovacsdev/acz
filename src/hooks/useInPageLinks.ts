@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { layoutTop } from './useCoverStack'
 
 /**
  * Makes every on-page link (`href="#section"`) reliably scroll to its section.
@@ -21,7 +22,7 @@ export function useInPageLinks() {
       e.preventDefault()
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       window.scrollTo({
-        top: target.getBoundingClientRect().top + window.scrollY,
+        top: layoutTop(target),
         behavior: reduceMotion ? 'auto' : 'smooth',
       })
       history.replaceState(null, '', `#${id}`)

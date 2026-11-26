@@ -18,7 +18,8 @@ export function useActiveSection(ids: readonly string[]) {
           if (e.isIntersecting) visible.add(e.target.id)
           else visible.delete(e.target.id)
         }
-        setActive(ids.find((id) => visible.has(id)) ?? null)
+        // Stacked sections can overlap mid-screen; the later one is the one on top.
+        setActive(ids.findLast((id) => visible.has(id)) ?? null)
       },
       { rootMargin: '-45% 0px -54% 0px' },
     )

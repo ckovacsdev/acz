@@ -1,0 +1,83 @@
+.campaigns {
+  /* Column breakpoints below measure this section's content width, so the space the wheel
+     nav reserves on desktop is taken into account. */
+  container-type: inline-size;
+  --edge-color: var(--cream);
+  padding: clamp(4.5rem, 8vw, 6.5rem) calc(var(--gutter) + var(--rail)) clamp(4.5rem, 8vw, 7rem);
+  background: var(--cream);
+  color: var(--ink-on-pink);
+}
+
+.campaigns__title {
+  margin: 0 0 clamp(2rem, 4vw, 3.25rem);
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  line-height: 1.05;
+  text-align: center;
+}
+
+.campaigns__grid {
+  /* Column count steps 2 → 3 → 4 → 6 with the space available; all divide the 12 covers
+     evenly, so the last row is never half empty. */
+  --cols: 2;
+
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: clamp(1.75rem, 3vw, 2.5rem) clamp(1rem, 2vw, 1.75rem);
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+@container (min-width: 380px) {
+  .campaigns__grid {
+    --cols: 3;
+  }
+}
+
+@container (min-width: 560px) {
+  .campaigns__grid {
+    --cols: 4;
+  }
+}
+
+@container (min-width: 1050px) {
+  .campaigns__grid {
+    --cols: 6;
+  }
+}
+
+.campaign {
+  min-width: 0;
+  text-align: center;
+}
+
+.campaign__cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  /* The soft-cornered squares from the Canva design. */
+  border-radius: 18%;
+  background: rgb(0 0 0 / 0.06);
+}
+
+.campaign__artist {
+  margin: 0.85rem 0 0;
+  font-size: clamp(1.0625rem, 1.5vw, 1.3rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.campaign__release {
+  margin: 0.3rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  color: rgb(0 0 0 / 0.72);
+  text-wrap: balance;
+}

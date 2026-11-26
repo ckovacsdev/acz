@@ -16,21 +16,37 @@
   translate: 0 0;
 }
 
-/* Landing → About: the hero sticks to the top of the screen and About, layered above it,
-   scrolls up over it like a sheet laid on top. Once About has covered it, the wrapper
-   ends and the page scrolls normally again. */
+/* Landing → About → Campaigns: each section pins in place and the next, layered above it,
+   slides up over it like a sheet laid on top. useCoverStack sets each one's --stick-top
+   (0, or negative for sections taller than the screen) and stacking order. Once the last
+   one has covered the rest, the wrapper ends and the page scrolls normally again. */
 .cover-stack {
   position: relative;
 }
 
-.cover-stack > .hero {
+.cover-stack > :not(:last-child) {
   position: sticky;
-  top: 0;
-  z-index: 0;
+  top: var(--stick-top, 0);
 }
 
-.cover-stack > .about {
-  z-index: 1;
+.cover-stack > :last-child {
+  position: relative;
+}
+
+/* The scalloped, doily-style top edge each sheet lays over the one before it. */
+.sheet-edge {
+  position: absolute;
+  top: calc(var(--scallop) * -1);
+  left: 0;
+  right: 0;
+  height: var(--scallop);
+  background: radial-gradient(
+      circle at 50% 100%,
+      var(--edge-color) calc(var(--scallop) - 0.5px),
+      transparent var(--scallop)
+    )
+    50% 0 / calc(var(--scallop) * 2) var(--scallop) repeat-x;
+  pointer-events: none;
 }
 
 .section {

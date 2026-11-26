@@ -2,7 +2,7 @@
   /* The rose ornaments set the top and bottom spacing; everything scales off their width. */
   --flower-w: clamp(140px, 18vw, 270px);
   --flower-top: clamp(1.75rem, 3.5vw, 3.25rem);
-  --scallop: 14px;
+  --edge-color: var(--pink-bg);
 
   position: relative;
   /* The heading starts just below the top rose (roses are ~0.65 as tall as wide). The bottom
@@ -14,34 +14,6 @@
     calc(var(--gutter) + var(--rail)) clamp(3.5rem, 6vw, 5.5rem);
   background: var(--pink-bg);
   color: var(--ink-on-pink);
-}
-
-/* Doily-style trim on the top and bottom edges: pink scallops reaching into the black,
-   so the landing flows straight into this section. */
-.about__edge {
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  height: var(--scallop);
-  background: radial-gradient(
-    circle at 50% 100%,
-    var(--pink-bg) calc(var(--scallop) - 0.5px),
-    transparent var(--scallop)
-  );
-  background-position: 50% 0;
-  background-repeat: repeat-x;
-  background-size: calc(var(--scallop) * 2) var(--scallop);
-  pointer-events: none;
-}
-
-.about__edge--top {
-  top: calc(var(--scallop) * -1);
-}
-
-.about__edge--bottom {
-  bottom: calc(var(--scallop) * -1);
-  scale: 1 -1;
 }
 
 .about__flower {
@@ -171,7 +143,6 @@
   .about {
     --flower-w: 40vw;
     --flower-top: 1.75rem;
-    --scallop: 10px;
   }
 
   .about__flower--top {

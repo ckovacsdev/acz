@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { SECTIONS } from '../sections'
+import { layoutTop } from '../hooks/useCoverStack'
 import './WheelNav.css'
 
 /**
@@ -37,7 +38,7 @@ export function WheelNav() {
       let prev = -1
       return ITEMS.map(({ id }, i) => {
         const el = document.getElementById(id)
-        const top = el ? el.getBoundingClientRect().top + window.scrollY : 0
+        const top = el ? layoutTop(el) : 0
         // An item is centred when its section reaches the top, which is where a click lands.
         let at = i === 0 ? 0 : Math.min(max, Math.max(0, top))
         if (at <= prev) at = prev + 1
@@ -85,7 +86,8 @@ export function WheelNav() {
         if (!el) return
         const r = el.getBoundingClientRect()
         const y = r.top + r.height / 2
-        const hit = surfaces.find((s) => s.rect.top <= y && s.rect.bottom > y)
+        // Stacked sections overlap; the later one is on top, so search from the end.
+        const hit = surfaces.findLast((s) => s.rect.top <= y && s.rect.bottom > y)
         const surface = hit?.surface ?? 'dark'
         if (el.dataset.surface !== surface) el.dataset.surface = surface
       })

@@ -1,12 +1,17 @@
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
 import { About } from './components/About'
+import { Campaigns } from './components/Campaigns'
 import { SECTIONS } from './sections'
 import { useInPageLinks } from './hooks/useInPageLinks'
+import { useCoverStack } from './hooks/useCoverStack'
+import { useRef } from 'react'
 import './App.css'
 
 function App() {
   useInPageLinks()
+  const stackRef = useRef<HTMLDivElement>(null)
+  useCoverStack(stackRef)
 
   return (
     <>
@@ -19,14 +24,15 @@ function App() {
             always reports being at the top already, so the browser wouldn't scroll to it. */}
         <div id="top" />
 
-        {/* The landing stays pinned while About slides up over it (see App.css). */}
-        <div className="cover-stack">
+        {/* Each section pins in place while the next slides up over it (see App.css). */}
+        <div className="cover-stack" ref={stackRef}>
           <Hero />
           <About />
+          <Campaigns />
         </div>
 
         {/* Placeholder sections so the nav has somewhere to go. Each gets designed next. */}
-        {SECTIONS.filter((s) => s.id !== 'about').map((s) => (
+        {SECTIONS.filter((s) => s.id !== 'about' && s.id !== 'work').map((s) => (
           <section key={s.id} id={s.id} className="section" aria-labelledby={`${s.id}-title`}>
             <h2 id={`${s.id}-title`} className="section__title">
               {s.label}
