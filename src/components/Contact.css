@@ -1,0 +1,140 @@
+.contact {
+  /* Same rose framing as About: one rose top-left, the same rose turned half a turn
+     bottom-right. Spacing scales off the rose width. */
+  --flower-w: clamp(140px, 18vw, 270px);
+  --flower-top: clamp(1.75rem, 3.5vw, 3.25rem);
+  --edge-color: var(--pink-bg);
+
+  position: relative;
+  padding: calc(var(--flower-top) + var(--flower-w) * 0.55) calc(var(--gutter) + var(--rail))
+    calc(var(--flower-top) + var(--flower-w) * 0.55);
+  background: var(--pink-bg);
+  color: var(--ink-on-pink);
+  text-align: center;
+}
+
+.contact__flower {
+  position: absolute;
+  width: var(--flower-w);
+  height: auto;
+  color: var(--ink-on-pink);
+}
+
+.contact__flower--top {
+  top: var(--flower-top);
+  left: var(--gutter);
+}
+
+.contact__flower--bottom {
+  right: var(--gutter);
+  bottom: var(--flower-top);
+  rotate: 180deg;
+}
+
+.contact__inner {
+  position: relative;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.contact__title {
+  margin: 0;
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(3.75rem, 10vw, 7.5rem);
+  line-height: 1.05;
+}
+
+.contact__intro {
+  max-width: 28rem;
+  margin: clamp(1rem, 2vw, 1.5rem) auto 0;
+  font-size: clamp(1.125rem, 1.8vw, 1.35rem);
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+/* ---------- Buttons ---------- */
+
+.contact__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem 1rem;
+  margin-top: clamp(2rem, 4vw, 2.75rem);
+}
+
+.contact__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  min-width: 13.5rem;
+  padding: 1rem 1.75rem;
+  border: 2px solid var(--ink-on-pink);
+  border-radius: 999px;
+  background: var(--ink-on-pink);
+  color: var(--cream);
+  font: inherit;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    translate 0.2s ease;
+}
+
+.contact__button:hover {
+  background: var(--cream);
+  color: var(--ink-on-pink);
+  translate: 0 -2px;
+}
+
+.contact__button:focus-visible {
+  outline: 3px solid var(--ink-on-pink);
+  outline-offset: 4px;
+}
+
+/* Confirmation after copying: briefly cream, with a check mark. */
+.contact__button[data-copied] {
+  background: var(--cream);
+  color: var(--ink-on-pink);
+}
+
+.contact__icon {
+  width: 1.3em;
+  height: 1.3em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact__icon-dot {
+  fill: currentColor;
+}
+
+@media (max-width: 640px) {
+  .contact {
+    --flower-w: 40vw;
+    --flower-top: 1.75rem;
+    padding-top: calc(var(--flower-top) + var(--flower-w) * 0.75);
+    padding-bottom: calc(var(--flower-top) + var(--flower-w) * 0.75);
+  }
+
+  .contact__flower--top {
+    left: 0.5rem;
+  }
+
+  .contact__flower--bottom {
+    right: 0.5rem;
+  }
+
+  .contact__button {
+    width: 100%;
+    max-width: 20rem;
+  }
+}
