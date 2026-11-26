@@ -47,6 +47,19 @@
   outline-offset: 5px;
 }
 
+/* Whichever face is turned away hides its contents outright. Relying on the 3D flip alone
+   isn't enough: some browsers (Safari especially) keep elements on their own layers, like
+   the raised, blurred TikTok phones, visible through the back. Hiding waits until the
+   face has turned past edge-on; showing is immediate. */
+.activation__card .flip-card__face > * {
+  transition: visibility 0s;
+}
+
+.activation__card .flip-card__face[aria-hidden='true'] > * {
+  visibility: hidden;
+  transition-delay: 0.15s;
+}
+
 /* Back face: the About page's pink with black ink. */
 .activation__card .flip-card__face--back {
   background: var(--pink-bg);
@@ -62,8 +75,14 @@
   height: 100%;
 }
 
+/* Nothing but the spacer may shrink. Otherwise some browsers (Safari especially) squeeze
+   the image to fit a card that's too short, which then measures too short and sticks. */
+.activation__face > * {
+  flex-shrink: 0;
+}
+
 .activation__spacer {
-  flex: 1;
+  flex: 1 1 0;
 }
 
 .activation__image {
@@ -86,6 +105,11 @@
   line-height: 1.2;
   letter-spacing: -0.01em;
   text-wrap: balance;
+}
+
+.activation__image--contain {
+  object-fit: contain;
+  background: none;
 }
 
 .activation__face--front .activation__title {
@@ -162,7 +186,7 @@
     animation: activation-peek 1.1s cubic-bezier(0.3, 0.7, 0.3, 1) 0.25s;
   }
 
-  .activation--peek:nth-child(2) .activation__card {
+  .activation--peek:nth-child(even) .activation__card {
     animation-delay: 0.45s;
   }
 }

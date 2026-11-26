@@ -23,8 +23,12 @@
   --wheel-backing: var(--pink-bg);
 }
 
+/* On cream, the current item turns pink as it does over the black sections; the rest stay
+   black, since the near-white used over black wouldn't show on cream. */
 .wheel-nav__item[data-surface='cream'] {
   --wheel-backing: var(--cream);
+  --wheel-active: var(--pink);
+  --wheel-hover: var(--pink);
 }
 
 .wheel-nav ul {

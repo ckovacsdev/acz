@@ -1,9 +1,19 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import FlipCard from './FlipCard'
+import { TikTokMock } from './TikTokMock'
 import './Activations.css'
 
-// Photo collages live in public/activations/.
-const ACTIVATIONS = [
+// Photo collages live in public/activations/. `fit: 'contain'` shows an image whole,
+// letterboxed on the black card, for ones too tall or wide to crop to the shared shape.
+// `stills` shows video stills in mock TikTok phones instead of a single image.
+const ACTIVATIONS: {
+  title: string
+  image: string
+  alt: string
+  fit?: 'contain'
+  stills?: string[]
+  body: string[]
+}[] = [
   {
     title: '‘eternal sunshine: deluxe’ Short Film Screenings',
     image: 'eternal-sunshine-screenings',
@@ -20,6 +30,26 @@ const ACTIVATIONS = [
     body: [
       'An invite-only early listening event for Cynthia’s album ‘I Forgive You’ for her top fans at Republic Studios. The space was completely transformed to be chic, dimly lit and intimate.',
       'Dinner and drinks were served, and fans listened to the entire album alongside Cynthia before a meet and greet with photos.',
+    ],
+  },
+  {
+    title: 'Jake Minch Fan Photographer Sign Up',
+    image: 'jake-minch-photographer',
+    fit: 'contain',
+    alt: 'The fan photographer sign-up form, listing the tour dates from Salt Lake City to San Diego, beside the “Getting Big Tour” poster offering a VIP ticket and a Kodak Charmera camera.',
+    body: [
+      'Going into his “Getting Big Tour” on the West Coast, Jake Minch and his team were looking for ways to engage his fanbase pre-tour.',
+      'Through his SWSH album, his team launched a pop up sign up for one fan at each show to win a VIP ticket and the chance to be the show’s photographer for the night (collaborating with Kodak). Our CRM captured around 700 fan emails for future marketing.',
+    ],
+  },
+  {
+    title: 'TikTok Catalog Campaign',
+    image: 'tiktok-catalog-campaign',
+    stills: ['tiktok-tell-them', 'tiktok-lock-in', 'tiktok-heartbroken'],
+    alt: 'Three fan page TikToks, captioned “you can go ahead tell them”, “time to lock in diva” and “when you’re lowkey over him but still heartbroken”.',
+    body: [
+      'Fanpage activation to boost catalog streams for select group of 5 artists through the use of genre pages focusing on relationships, love and heartbreak.',
+      'Created pitch deck for label, built 12 organic fanpages across TikTok and Instagram and posted 2x daily on each. Results generated over 5M impressions, coupled with paid ads (as of 11/19).',
     ],
   },
 ]
@@ -54,6 +84,9 @@ export function Activations() {
   useLayoutEffect(() => {
     const faces = faceRefs.current.filter((el): el is HTMLDivElement => !!el)
     const px = (v: string) => parseFloat(v) || 0
+    // A few pixels of slack so rounding or font differences between browsers never clip
+    // the last line or the cue.
+    const BUFFER = 6
 
     const need = (face: HTMLElement) => {
       const cs = getComputedStyle(face)
@@ -61,9 +94,10 @@ export function Activations() {
       for (const child of Array.from(face.children) as HTMLElement[]) {
         if (child.classList.contains('activation__spacer')) continue
         const c = getComputedStyle(child)
-        total += child.offsetHeight + px(c.marginTop) + px(c.marginBottom)
+        // Exact (fractional) heights; offsetHeight rounds and can come up short.
+        total += child.getBoundingClientRect().height + px(c.marginTop) + px(c.marginBottom)
       }
-      return Math.ceil(total)
+      return Math.ceil(total) + BUFFER
     }
 
     const measure = () => {
@@ -86,7 +120,17 @@ export function Activations() {
       ro.observe(el)
       Array.from(el.children).forEach((child) => ro.observe(child))
     })
-    return () => ro.disconnect()
+    // And once more when the web fonts and images have finished loading, in case the
+    // observer misses a late reflow.
+    let alive = true
+    const later = () => alive && measure()
+    document.fonts?.ready.then(later)
+    window.addEventListener('load', later)
+    return () => {
+      alive = false
+      ro.disconnect()
+      window.removeEventListener('load', later)
+    }
   }, [])
 
   // A small "peek" wobble the first time each card scrolls into view, hinting that it turns.
@@ -138,16 +182,23 @@ export function Activations() {
                   className="activation__face activation__face--front"
                   ref={(el) => void (faceRefs.current[i * 2] = el)}
                 >
-                  <img
-                    className="activation__image"
-                    src={`/activations/${a.image}.jpg`}
-                    alt={a.alt}
-                    width={800}
-                    height={540}
-                    loading="lazy"
-                    decoding="async"
-                    draggable={false}
-                  />
+                  {a.stills ? (
+                    <TikTokMock
+                      stills={a.stills.map((name) => `/activations/${name}.jpg`)}
+                      label={a.alt}
+                    />
+                  ) : (
+                    <img
+                      className={`activation__image${a.fit === 'contain' ? ' activation__image--contain' : ''}`}
+                      src={`/activations/${a.image}.jpg`}
+                      alt={a.alt}
+                      width={800}
+                      height={540}
+                      loading="lazy"
+                      decoding="async"
+                      draggable={false}
+                    />
+                  )}
                   <h3 className="activation__title">{a.title}</h3>
                   <span className="activation__spacer" aria-hidden="true" />
                   <Cue action="to read more" />
