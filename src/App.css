@@ -16,6 +16,23 @@
   translate: 0 0;
 }
 
+/* Landing → About: the hero sticks to the top of the screen and About, layered above it,
+   scrolls up over it like a sheet laid on top. Once About has covered it, the wrapper
+   ends and the page scrolls normally again. */
+.cover-stack {
+  position: relative;
+}
+
+.cover-stack > .hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+}
+
+.cover-stack > .about {
+  z-index: 1;
+}
+
 .section {
   max-width: calc(var(--page-max) + 2 * var(--rail));
   min-height: 80vh;
@@ -47,4 +64,9 @@
 
 .footer p {
   margin: 0;
+}
+
+/* Sections receive focus when a nav link jumps to them; no ring for that. */
+[tabindex='-1']:focus {
+  outline: none;
 }

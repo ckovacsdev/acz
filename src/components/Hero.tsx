@@ -3,7 +3,7 @@ import './Hero.css'
 
 export function Hero() {
   return (
-    <section id="top" className="hero" aria-labelledby="hero-name">
+    <section className="hero" aria-labelledby="hero-name">
       <div className="hero__plate">
         <Doily variant="wide" className="hero__doily hero__doily--wide" />
         <Doily variant="round" className="hero__doily hero__doily--round" />

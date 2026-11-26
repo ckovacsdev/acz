@@ -1,16 +1,17 @@
 .about {
   /* The rose ornaments set the top and bottom spacing; everything scales off their width. */
-  --flower-w: clamp(150px, 22vw, 330px);
+  --flower-w: clamp(140px, 18vw, 270px);
   --flower-top: clamp(1.75rem, 3.5vw, 3.25rem);
   --scallop: 14px;
 
   position: relative;
-  /* Clear space for a rose at the top and bottom (they're ~0.65 as tall as wide), so the
-     heading starts just below the top one and the content ends just above the bottom one. */
+  /* The heading starts just below the top rose (roses are ~0.65 as tall as wide). The bottom
+     rose sits in the empty corner beside the end of the text, so the bottom padding is just
+     breathing room; when everything stacks in one column, .about__body makes room instead. */
   --title-start: 0.72;
-  --rose-space: calc(var(--flower-top) + var(--flower-w) * var(--title-start));
 
-  padding: var(--rose-space) calc(var(--gutter) + var(--rail));
+  padding: calc(var(--flower-top) + var(--flower-w) * var(--title-start))
+    calc(var(--gutter) + var(--rail)) clamp(3.5rem, 6vw, 5.5rem);
   background: var(--pink-bg);
   color: var(--ink-on-pink);
 }
@@ -81,6 +82,8 @@
 .about__body {
   display: grid;
   gap: 2.75rem;
+  /* Single column: the facts end the section, so leave room for the bottom rose below them. */
+  margin-bottom: calc(var(--flower-w) * 0.6);
 }
 
 @container (min-width: 50rem) {
@@ -88,6 +91,8 @@
     grid-template-columns: minmax(0, 1fr) 19.5rem;
     gap: clamp(3rem, 6cqi, 5rem);
     align-items: start;
+    /* Two columns: the bottom rose sits in the empty corner under the facts. */
+    margin-bottom: 0;
   }
 
   .about__facts {
