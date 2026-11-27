@@ -5,6 +5,7 @@ export const SECTIONS = [
   { id: 'fanpages', label: 'Fanpages', hint: 'fan accounts & results' },
   { id: 'activations', label: 'Activations', hint: 'fan events & experiences' },
   { id: 'tours', label: 'Tours', hint: 'tours I’ve worked on' },
+  { id: 'publications', label: 'Publications', hint: 'reviews, Q&As & features' },
   { id: 'experience', label: 'Experience', hint: 'where I’ve worked' },
   { id: 'contact', label: 'Contact', hint: 'say hello' },
 ] as const

@@ -1,0 +1,350 @@
+/* Carries straight on from Tours on the same cream. */
+.pubs {
+  padding: clamp(0.5rem, 2vw, 1.5rem) calc(var(--gutter) + var(--rail)) clamp(4.5rem, 8vw, 7rem);
+  background: var(--cream);
+  color: var(--ink-on-pink);
+}
+
+.pubs__title {
+  margin: 0 0 clamp(2rem, 4vw, 3.25rem);
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  line-height: 1.05;
+  text-align: center;
+}
+
+/* ---------- Grid of groups ---------- */
+
+.pubs__frame {
+  container-type: inline-size;
+  max-width: 76rem;
+  margin: 0 auto;
+}
+
+/* Groups sit on a column grid (four wide, two on tablets) and span one column per article,
+   so Reviews and Q&As share the first row and the other three share the second. The gap
+   between groups is wider than the gap between cards, so each group reads as a set. */
+.pubs__grid {
+  --cols: 1;
+  --card-gap: clamp(0.85rem, 1.6vw, 1.25rem);
+
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: clamp(2.5rem, 5vw, 3.75rem) clamp(1.75rem, 3.5vw, 3rem);
+}
+
+@container (min-width: 560px) {
+  .pubs__grid {
+    --cols: 2;
+  }
+}
+
+@container (min-width: 880px) {
+  .pubs__grid {
+    --cols: 4;
+  }
+}
+
+.pubs__group {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+}
+
+@container (min-width: 560px) {
+  .pubs__group[data-span='2'] {
+    grid-column: span 2;
+  }
+}
+
+.pubs__group-title {
+  margin: 0 0 clamp(1rem, 2vw, 1.5rem);
+  /* Sized off the grid's width so "Show Coverage" stays on one line over its single card. */
+  font-size: clamp(1.5rem, 2.8cqi, 2.25rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pubs__cards {
+  display: grid;
+  grid-template-columns: repeat(var(--span), minmax(0, 1fr));
+  gap: var(--card-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pubs__cards > li {
+  display: flex;
+  min-width: 0;
+}
+
+/* Phones: each group becomes a sideways strip running edge to edge, snapping card by card. */
+@container (max-width: 559.98px) {
+  .pubs__group-title {
+    text-align: left;
+  }
+
+  .pubs__cards {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: min(80%, 19rem);
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0.5rem var(--gutter) 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+
+  .pubs__cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pubs__cards > li {
+    scroll-snap-align: start;
+  }
+}
+
+/* ---------- Article cards ---------- */
+
+/* Each card recreates the article's preview on its own site, in real text. */
+.pub {
+  --card-bg: #fff;
+  --card-ink: #111;
+  --card-soft: #8a8a8a;
+
+  container-type: inline-size;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background: var(--card-bg);
+  color: var(--card-ink);
+  text-decoration: none;
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.07),
+    0 1px 2px rgb(0 0 0 / 0.06);
+  transition:
+    translate 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.pub[data-outlet='medium'] {
+  --card-bg: #1b1b1b;
+  --card-ink: #f4f4f4;
+  --card-soft: #a8a8a8;
+}
+
+.pub:hover {
+  translate: 0 -4px;
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.07),
+    0 14px 30px -12px rgb(0 0 0 / 0.35);
+}
+
+.pub:focus-visible {
+  outline: 3px solid var(--pink);
+  outline-offset: 4px;
+}
+
+.pub__head {
+  display: flex;
+  flex-direction: column;
+  padding: 6cqi 6cqi 0;
+}
+
+.pub__title {
+  margin: 0;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+/* The Luna Collective */
+
+.pub[data-outlet='luna'] .pub__head {
+  align-items: center;
+  padding-inline: 4cqi;
+  text-align: center;
+}
+
+.pub__date {
+  margin-bottom: 0.5em;
+  color: var(--card-soft);
+  font-size: clamp(0.65rem, 2.4cqi, 0.75rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pub[data-outlet='luna'] .pub__title {
+  font-size: clamp(0.9rem, 4.9cqi, 1.3rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+
+/* A strip of the article type, repeated, that runs across the card's full width. */
+.pub__tape {
+  align-self: stretch;
+  overflow: hidden;
+  margin: 5cqi -4cqi 0;
+  padding: 0.3em 0;
+  background: #f5ee2f;
+  font-size: clamp(0.62rem, 2.6cqi, 0.78rem);
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-bottom: 1px solid rgb(0 0 0 / 0.25);
+}
+
+.pub__tape[data-tape='Interview'] {
+  background: #74f25a;
+}
+
+.pub__tape > span {
+  display: inline-block;
+  white-space: pre;
+  word-spacing: 0.35em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pub:hover .pub__tape > span {
+    animation: pub-tape 6s linear infinite;
+  }
+}
+
+@keyframes pub-tape {
+  to {
+    translate: -50% 0;
+  }
+}
+
+.pub__byline {
+  margin: 4.5cqi 0 4cqi;
+  font-size: clamp(0.62rem, 2.6cqi, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pub__byline u {
+  text-underline-offset: 0.2em;
+}
+
+/* Medium */
+
+.pub[data-outlet='medium'] .pub__title {
+  font-size: clamp(1rem, 6.2cqi, 1.5rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+
+.pub__dek {
+  margin: 0.65em 0 0;
+  color: #cfcfcf;
+  font-size: clamp(0.8rem, 3.5cqi, 0.95rem);
+  line-height: 1.4;
+}
+
+.pub__meta {
+  margin-top: 0.9em;
+  padding-bottom: 5cqi;
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+  color: var(--card-soft);
+  font-size: clamp(0.68rem, 2.8cqi, 0.8rem);
+}
+
+/* The article image, inset like the site's own preview and cut off at the card's foot. */
+.pub__media {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 46cqi;
+  margin: 5cqi 4cqi 0;
+  overflow: hidden;
+}
+
+.pub__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: scale 0.5s ease;
+}
+
+.pub:hover .pub__media img {
+  scale: 1.035;
+}
+
+/* The same pink pill the activation cards use, so it reads as clickable. */
+.pub__read {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;
+  padding: 0.35em 0.65em 0.35em 0.85em;
+  border-radius: 999px;
+  background: var(--pink);
+  color: #000;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.25);
+  transition: translate 0.25s ease;
+}
+
+.pub__read svg {
+  width: 1.15em;
+  height: 1.15em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pub:hover .pub__read {
+  translate: 0 -2px;
+}
+
+/* ---------- More links ---------- */
+
+.pubs__more {
+  margin: clamp(3rem, 6vw, 4.5rem) auto 0;
+  font-size: clamp(1.35rem, 2.8vw, 2.1rem);
+  line-height: 1.35;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.pubs__more a {
+  color: inherit;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.15em;
+  transition:
+    color 0.2s ease,
+    text-decoration-thickness 0.2s ease;
+}
+
+.pubs__more a:hover {
+  color: var(--pink);
+  text-decoration-thickness: 3px;
+}
+
+.pubs__more a:focus-visible {
+  outline: 3px solid var(--pink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}

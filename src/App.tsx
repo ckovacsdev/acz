@@ -5,6 +5,7 @@ import { Campaigns } from './components/Campaigns'
 import { Fanpages } from './components/Fanpages'
 import { Activations } from './components/Activations'
 import { Tours } from './components/Tours'
+import { Publications } from './components/Publications'
 import { Contact } from './components/Contact'
 import { SECTIONS } from './sections'
 import { useInPageLinks } from './hooks/useInPageLinks'
@@ -41,6 +42,7 @@ function App() {
         <Fanpages />
         <Activations />
         <Tours />
+        <Publications />
 
         {/* The section before Contact pins in place while Contact slides up over it, like
             About over the landing. */}
@@ -48,7 +50,7 @@ function App() {
           {/* Placeholder sections so the nav has somewhere to go. Each gets designed next. */}
           {SECTIONS.filter(
             (s) =>
-              !['about', 'work', 'fanpages', 'activations', 'tours', 'contact'].includes(s.id),
+              !['about', 'work', 'fanpages', 'activations', 'tours', 'publications', 'contact'].includes(s.id),
           ).map((s) => (
             <section key={s.id} id={s.id} className="section" aria-labelledby={`${s.id}-title`}>
               <h2 id={`${s.id}-title`} className="section__title">
