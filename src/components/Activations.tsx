@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import FlipCard from './FlipCard'
 import { TikTokMock } from './TikTokMock'
+import { SectionDivider } from './SectionDivider'
 import './Activations.css'
 
 // Photo collages live in public/activations/. `fit: 'contain'` shows an image whole,
@@ -158,6 +159,7 @@ export function Activations() {
       data-surface="cream"
       aria-labelledby="activations-title"
     >
+      <SectionDivider />
       <h2 id="activations-title" className="activations__title">
         Fandom Activations
       </h2>
@@ -200,7 +202,12 @@ export function Activations() {
                     />
                   )}
                   <h3 className="activation__title">{a.title}</h3>
-                  <span className="activation__spacer" aria-hidden="true" />
+                  {/* Fills whatever height the card has spare (it's sized to the longer back)
+                      with the opening of the description, fading out above the cue. Screen
+                      readers get the full text on the back instead. */}
+                  <p className="activation__spacer activation__teaser" aria-hidden="true">
+                    {a.body[0]}
+                  </p>
                   <Cue action="to read more" />
                 </div>
               }

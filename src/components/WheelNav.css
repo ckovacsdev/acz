@@ -34,12 +34,13 @@
   text-shadow: 0 1px 3px rgb(0 0 0 / 0.28);
 }
 
-/* On cream, the current item turns pink as it does over the black sections; the rest stay
-   black, since the near-white used over black wouldn't show on cream. */
+/* On cream, the current item turns a deeper shade of the brand pink (the regular pink is
+   too faint on cream to read); the rest stay black, since the near-white used over black
+   wouldn't show on cream. */
 .wheel-nav__item[data-surface='cream'] {
   --wheel-backing: var(--cream);
-  --wheel-active: var(--pink);
-  --wheel-hover: var(--pink);
+  --wheel-active: var(--pink-deep);
+  --wheel-hover: var(--pink-deep);
 }
 
 .wheel-nav ul {
@@ -59,7 +60,7 @@
   border-radius: 0.5em;
   background: var(--wheel-backing, transparent);
   /* Scales with the window height so all ten items fit, from short laptops to tall screens. */
-  font-size: clamp(0.95rem, 2.5vh, 1.3rem);
+  font-size: clamp(1.05rem, 2.5vh, 1.3rem);
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0.005em;

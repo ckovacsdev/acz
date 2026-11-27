@@ -21,6 +21,7 @@ const RADIUS = SPACING / TILT
 // current item all the way to the middle (and push the ends off screen).
 const TURN = 0.7
 const FADE = 0.06 // opacity lost per step from the current item
+const ACTIVE_GROW = 0.12 // how much larger the current item is drawn
 const MIN_OPACITY = 0.55
 const CENTRE = (ITEMS.length - 1) / 2
 const SMOOTHING = 180 // ms easing time constant
@@ -73,7 +74,10 @@ export function WheelNav() {
         const dist = Math.abs(i - pos)
         const x = RADIUS * (1 - Math.cos(a))
         const y = RADIUS * Math.sin(a)
-        el.style.transform = `translate(${x.toFixed(4)}em, calc(-50% + ${y.toFixed(4)}em)) rotate(${(-a).toFixed(4)}rad)`
+        // The current item is drawn a little larger, so it stands out on every background
+        // and its text is large enough to read in the paler highlight colours.
+        const grow = 1 + ACTIVE_GROW * Math.max(0, 1 - dist)
+        el.style.transform = `translate(${x.toFixed(4)}em, calc(-50% + ${y.toFixed(4)}em)) rotate(${(-a).toFixed(4)}rad) scale(${grow.toFixed(4)})`
         el.style.setProperty('--opacity', Math.max(MIN_OPACITY, 1 - dist * FADE).toFixed(3))
         // 1 when this item is in the middle, easing to 0 one step away.
         el.style.setProperty('--active', Math.max(0, 1 - dist).toFixed(3))

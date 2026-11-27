@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { SectionDivider } from './SectionDivider'
 import './Socials.css'
 
 type Feed = {
@@ -57,6 +58,7 @@ export function Socials() {
 
   return (
     <section id="socials" className="socials" data-surface="cream" aria-labelledby="socials-title">
+      <SectionDivider />
       <h2 id="socials-title" className="socials__title">
         Socials
       </h2>

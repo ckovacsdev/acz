@@ -1,7 +1,7 @@
 /* Follows Socials on the same cream; Contact slides up over it. The extra room at the
    foot lets the last deck breathe before Contact covers it. */
 .decks {
-  padding: clamp(0.5rem, 2vw, 1.5rem) calc(var(--gutter) + var(--rail)) clamp(7rem, 13vw, 11rem);
+  padding: var(--flow-top) calc(var(--gutter) + var(--rail)) clamp(7rem, 13vw, 11rem);
   background: var(--cream);
   color: var(--ink-on-pink);
 }
@@ -22,12 +22,6 @@
   margin: 0 auto;
 }
 
-@media (min-width: 1100px) {
-  /* Clear of the side wheel's longer labels, as in Publications. */
-  .decks__list {
-    width: 92%;
-  }
-}
 
 /* ---------- One deck: fanned slides beside its description ---------- */
 

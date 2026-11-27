@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react'
 import { WRITING } from '../contact'
+import { SectionDivider } from './SectionDivider'
 import './Publications.css'
 
 type Base = { title: string; href: string; image: string }
@@ -116,6 +117,7 @@ export function Publications() {
       data-surface="cream"
       aria-labelledby="publications-title"
     >
+      <SectionDivider />
       <h2 id="publications-title" className="pubs__title">
         Publications
       </h2>

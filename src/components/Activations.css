@@ -1,7 +1,7 @@
 /* Carries straight on from Fanpages: same cream, no edge, a modest top gap. */
 .activations {
   container-type: inline-size;
-  padding: clamp(0.5rem, 2vw, 1.5rem) calc(var(--gutter) + var(--rail)) clamp(4.5rem, 8vw, 7rem);
+  padding: var(--flow-top) calc(var(--gutter) + var(--rail)) var(--flow-gap);
   background: var(--cream);
   color: var(--ink-on-pink);
 }
@@ -113,7 +113,19 @@
 }
 
 .activation__face--front .activation__title {
-  margin: 1.25rem 1.4rem 0;
+  margin: 1.25rem 1.4rem 0.6rem;
+}
+
+/* A preview of the description in the front's spare height, fading out toward the cue.
+   Where there's little or no spare height it's simply clipped away. */
+.activation__teaser {
+  min-height: 0;
+  margin: 0 1.4rem;
+  overflow: hidden;
+  color: rgb(241 235 228 / 0.7);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 3.5em), transparent);
 }
 
 .activation__face--back .activation__title {

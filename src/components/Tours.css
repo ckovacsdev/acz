@@ -1,6 +1,6 @@
 /* Carries straight on from Activations: same cream, no edge, a modest top gap. */
 .tours {
-  padding: clamp(0.5rem, 2vw, 1.5rem) calc(var(--gutter) + var(--rail)) clamp(4.5rem, 8vw, 7rem);
+  padding: var(--flow-top) calc(var(--gutter) + var(--rail)) var(--flow-gap);
   background: var(--cream);
   color: var(--ink-on-pink);
 }

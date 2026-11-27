@@ -1,3 +1,4 @@
+import { SectionDivider } from './SectionDivider'
 import './Decks.css'
 
 type Deck = {
@@ -38,6 +39,7 @@ const newTab = { target: '_blank', rel: 'noopener noreferrer' } as const
 export function Decks() {
   return (
     <section id="decks" className="decks" data-surface="cream" aria-labelledby="decks-title">
+      <SectionDivider />
       <h2 id="decks-title" className="decks__title">
         Decks
       </h2>

@@ -3,7 +3,7 @@
      nav reserves on desktop is taken into account. */
   container-type: inline-size;
   --edge-color: var(--cream);
-  padding: clamp(4.5rem, 8vw, 6.5rem) calc(var(--gutter) + var(--rail)) clamp(4.5rem, 8vw, 7rem);
+  padding: clamp(4.5rem, 8vw, 6.5rem) calc(var(--gutter) + var(--rail)) var(--flow-gap);
   background: var(--cream);
   color: var(--ink-on-pink);
 }
