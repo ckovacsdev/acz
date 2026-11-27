@@ -62,18 +62,6 @@
   scale: 1 -1;
 }
 
-.footer {
-  padding: 2.5rem var(--gutter);
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-soft);
-  border-top: 1px solid var(--line);
-}
-
-.footer p {
-  margin: 0;
-}
-
 /* Sections receive focus when a nav link jumps to them; no ring for that. */
 [tabindex='-1']:focus {
   outline: none;

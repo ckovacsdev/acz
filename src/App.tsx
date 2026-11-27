@@ -8,6 +8,7 @@ import { Tours } from './components/Tours'
 import { Publications } from './components/Publications'
 import { Socials } from './components/Socials'
 import { Decks } from './components/Decks'
+import { Footer } from './components/Footer'
 import { Contact } from './components/Contact'
 import { useInPageLinks } from './hooks/useInPageLinks'
 import { useCoverStack } from './hooks/useCoverStack'
@@ -53,9 +54,7 @@ function App() {
           <Contact />
         </div>
       </main>
-      <footer className="footer">
-        <p>© {new Date().getFullYear()} Anna Cuciurean-Zapan</p>
-      </footer>
+      <Footer />
     </>
   )
 }

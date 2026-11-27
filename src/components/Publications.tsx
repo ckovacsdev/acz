@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import { WRITING } from '../contact'
 import './Publications.css'
 
 type Base = { title: string; href: string; image: string }
@@ -105,12 +106,6 @@ const GROUPS: Group[] = [
   },
 ]
 
-const MORE = [
-  { label: 'The Luna Collective', href: 'https://www.thelunacollective.co/search?q=anna%20cuciurean-zapan' },
-  { label: 'Medium', href: 'https://medium.com/@acuciure/' },
-  { label: 'Substack', href: 'https://hpy2bhere.substack.com/' },
-]
-
 const newTab = { target: '_blank', rel: 'noopener noreferrer' } as const
 
 export function Publications() {
@@ -149,13 +144,13 @@ export function Publications() {
 
       <p className="pubs__more">
         more on{' '}
-        {MORE.map((m, i) => (
+        {WRITING.map((m, i) => (
           <span key={m.href}>
             <a href={m.href} {...newTab}>
               {m.label}
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
-            {i < MORE.length - 2 ? ', ' : i === MORE.length - 2 ? ' and ' : ''}
+            {i < WRITING.length - 2 ? ', ' : i === WRITING.length - 2 ? ' and ' : ''}
           </span>
         ))}
       </p>

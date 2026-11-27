@@ -1,32 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { DotFlower } from './DotFlower'
+import { INSTAGRAM_URL, copyEmail } from '../contact'
 import './Contact.css'
-
-const INSTAGRAM_URL = 'https://www.instagram.com/aczapan/'
-
-// The address is stored reversed and base64-encoded and only assembled when someone clicks
-// "Copy email", so it never appears as plain text in the page or its HTML for scrapers.
-const ENCODED_EMAIL = 'bW9jLmxpYW1nQGVydWljdWNh'
-const email = () => atob(ENCODED_EMAIL).split('').reverse().join('')
-
-async function copyText(text: string) {
-  try {
-    await navigator.clipboard.writeText(text)
-    return true
-  } catch {
-    // Older browsers, or the clipboard permission was refused: try the legacy route.
-    const area = document.createElement('textarea')
-    area.value = text
-    area.setAttribute('readonly', '')
-    area.style.position = 'fixed'
-    area.style.opacity = '0'
-    document.body.appendChild(area)
-    area.select()
-    const ok = document.execCommand('copy')
-    area.remove()
-    return ok
-  }
-}
 
 export function Contact() {
   const [copied, setCopied] = useState(false)
@@ -34,14 +9,11 @@ export function Contact() {
   useEffect(() => () => window.clearTimeout(timer.current), [])
 
   const onCopy = async () => {
-    const address = email()
-    if (await copyText(address)) {
+    // Where copying isn't possible, copyEmail opens the visitor's email app instead.
+    if (await copyEmail()) {
       setCopied(true)
       window.clearTimeout(timer.current)
       timer.current = window.setTimeout(() => setCopied(false), 2500)
-    } else {
-      // Copying isn't possible here, so open the visitor's email app instead.
-      window.location.href = `mailto:${address}`
     }
   }
 
