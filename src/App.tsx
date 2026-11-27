@@ -6,6 +6,8 @@ import { Fanpages } from './components/Fanpages'
 import { Activations } from './components/Activations'
 import { Tours } from './components/Tours'
 import { Publications } from './components/Publications'
+import { Socials } from './components/Socials'
+import { Decks } from './components/Decks'
 import { Contact } from './components/Contact'
 import { useInPageLinks } from './hooks/useInPageLinks'
 import { useCoverStack } from './hooks/useCoverStack'
@@ -41,11 +43,13 @@ function App() {
         <Fanpages />
         <Activations />
         <Tours />
+        <Publications />
+        <Socials />
 
-        {/* Publications pins in place while Contact slides up over it, like About over the
+        {/* Decks pins in place while Contact slides up over it, like About over the
             landing. */}
         <div className="cover-stack" ref={contactStackRef}>
-          <Publications />
+          <Decks />
           <Contact />
         </div>
       </main>

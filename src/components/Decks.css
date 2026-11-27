@@ -1,0 +1,203 @@
+/* Follows Socials on the same cream; Contact slides up over it. The extra room at the
+   foot lets the last deck breathe before Contact covers it. */
+.decks {
+  padding: clamp(0.5rem, 2vw, 1.5rem) calc(var(--gutter) + var(--rail)) clamp(7rem, 13vw, 11rem);
+  background: var(--cream);
+  color: var(--ink-on-pink);
+}
+
+.decks__title {
+  margin: 0 0 clamp(2rem, 4vw, 3.25rem);
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  line-height: 1.05;
+  text-align: center;
+}
+
+.decks__list {
+  display: grid;
+  gap: clamp(3.5rem, 7vw, 5.5rem);
+  max-width: 70rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 1100px) {
+  /* Clear of the side wheel's longer labels, as in Publications. */
+  .decks__list {
+    width: 92%;
+  }
+}
+
+/* ---------- One deck: fanned slides beside its description ---------- */
+
+/* Alternate decks swap sides, zig-zagging down the page. */
+.deck {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 4.5vw, 4rem);
+}
+
+.deck[data-flip] {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+}
+
+.deck[data-flip] .deck__fan {
+  order: 2;
+}
+
+/* The slides: the cover in front, the next two fanned out behind it like cards in a hand.
+   Hovering the deck spreads them further. */
+.deck__fan {
+  position: relative;
+  display: block;
+  aspect-ratio: 2 / 1;
+  cursor: pointer;
+}
+
+.deck__slide {
+  --x: 0%;
+  --r: 0deg;
+  --y: 0px;
+
+  position: absolute;
+  top: 50%;
+  left: 17%;
+  width: 66%;
+  height: auto;
+  aspect-ratio: 518 / 290;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  background: #111;
+  box-shadow: 0 16px 34px -18px rgb(0 0 0 / 0.6);
+  transform: translate(var(--x), calc(-50% + var(--y))) rotate(var(--r));
+  transition: transform 0.45s cubic-bezier(0.3, 0.8, 0.3, 1.15);
+}
+
+.deck__slide[data-n='0'] {
+  z-index: 2;
+}
+
+.deck__slide[data-n='1'] {
+  --x: -24%;
+  --r: -6deg;
+  --y: 4%;
+}
+
+.deck__slide[data-n='2'] {
+  --x: 24%;
+  --r: 6deg;
+  --y: 4%;
+}
+
+@media (hover: hover) {
+  .deck:hover .deck__slide[data-n='0'],
+  .deck:focus-within .deck__slide[data-n='0'] {
+    --y: -6px;
+  }
+
+  .deck:hover .deck__slide[data-n='1'],
+  .deck:focus-within .deck__slide[data-n='1'] {
+    --x: -36%;
+    --r: -9deg;
+    --y: 8%;
+  }
+
+  .deck:hover .deck__slide[data-n='2'],
+  .deck:focus-within .deck__slide[data-n='2'] {
+    --x: 36%;
+    --r: 9deg;
+    --y: 8%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck__slide {
+    transition: none;
+  }
+}
+
+/* ---------- Text ---------- */
+
+.deck__name {
+  margin: 0;
+  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.deck__example {
+  margin: 0.55rem 0 0;
+  color: rgb(0 0 0 / 0.6);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.deck__body {
+  margin: 1rem 0 0;
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  line-height: 1.5;
+}
+
+/* The same black pill as the Contact buttons. */
+.deck__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.1rem 0.75rem 1.4rem;
+  border: 2px solid var(--ink-on-pink);
+  border-radius: 999px;
+  background: var(--ink-on-pink);
+  color: var(--cream);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    translate 0.2s ease;
+}
+
+.deck__cta svg {
+  width: 1.2em;
+  height: 1.2em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.deck__cta:hover {
+  background: var(--pink);
+  color: var(--ink-on-pink);
+  translate: 0 -2px;
+}
+
+.deck__cta:focus-visible {
+  outline: 3px solid var(--pink);
+  outline-offset: 4px;
+}
+
+/* ---------- Narrow screens: slides above, text below ---------- */
+
+@media (max-width: 799.98px) {
+  .deck,
+  .deck[data-flip] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .deck[data-flip] .deck__fan {
+    order: 0;
+  }
+
+  .deck__fan {
+    width: 100%;
+    max-width: 34rem;
+    margin: 0 auto;
+  }
+}
