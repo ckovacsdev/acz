@@ -68,8 +68,9 @@
   align-items: center;
   justify-content: center;
   gap: 0.6em;
-  min-width: 13.5rem;
-  padding: 1rem 1.75rem;
+  /* Narrow enough for all three buttons to sit in one row on desktop. */
+  min-width: 12rem;
+  padding: 1rem 1.5rem;
   border: 2px solid var(--ink-on-pink);
   border-radius: 999px;
   background: var(--ink-on-pink);

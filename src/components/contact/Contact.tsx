@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { DotFlower } from './DotFlower'
-import { INSTAGRAM_URL, copyEmail } from '../contact'
+import { DotFlower } from '../dot-flower/DotFlower'
+import { INSTAGRAM_URL, RESUME_URL, copyEmail } from '../../contact'
 import './Contact.css'
 
 export function Contact() {
@@ -57,6 +57,14 @@ export function Contact() {
             {copied ? <CheckIcon /> : <MailIcon />}
             <span>{copied ? 'Email copied' : 'Copy email'}</span>
           </button>
+
+          <a className="contact__button" href={RESUME_URL} target="_blank" rel="noopener">
+            <ResumeIcon />
+            <span>
+              Resume
+              <span className="sr-only"> (PDF, opens in a new tab)</span>
+            </span>
+          </a>
         </div>
 
         {/* Announces the copy to screen readers. */}
@@ -87,6 +95,13 @@ const MailIcon = () => (
   <svg {...svgProps}>
     <rect x="3.5" y="5.5" width="17" height="13" rx="2.5" />
     <path d="m4.5 7 7.5 6 7.5-6" />
+  </svg>
+)
+
+const ResumeIcon = () => (
+  <svg {...svgProps}>
+    <path d="M14 3.5H7.5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8Z" />
+    <path d="M14 3.5V8h4.5M9 12.5h6M9 16h6" />
   </svg>
 )
 

@@ -1,4 +1,4 @@
-import { DotFlower } from './DotFlower'
+import { DotFlower } from '../dot-flower/DotFlower'
 import './About.css'
 
 // Quick facts, drawn straight from the copy below, for people who skim.

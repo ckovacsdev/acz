@@ -1,4 +1,4 @@
-import { SectionDivider } from './SectionDivider'
+import { SectionDivider } from '../section-divider/SectionDivider'
 import './Tours.css'
 
 type Tour = { artist: string; tour: string; poster: string }

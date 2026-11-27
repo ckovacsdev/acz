@@ -1,75 +1,42 @@
-# React + TypeScript + Vite
+# Anna Cuciurean-Zapan · Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfolio site for Anna Cuciurean-Zapan, a music industry professional working across marketing, social media, PR and journalism. Built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+The design started from Anna's portfolio in Canva and was adapted for the web with Claude Code: the same black, pink and cream look, rebuilt as a single page with real text, links and layouts that work from phones to wide screens.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Live:** https://aczapan.com
 
-## React Compiler
+## Design
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Desktop | Mobile |
+|---|---|
+| <img src="docs/home-screenshot.png" width="600"> | <img src="docs/home-screenshot-mobile.png" width="200"> |
+| <img src="docs/work-screenshot.png" width="600"> | <img src="docs/work-screenshot-mobile.png" width="200"> |
 
-## Expanding the ESLint configuration
+## Design Ideals
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Warm and inviting rather than technical: the Canva palette of black, pink and cream, set in Pinyon Script for headings and Familjen Grotesk for everything else
+- Opens on a lace doily with Anna's name, drawn as an SVG, with a one-line tagline pinned to the bottom of the screen
+- Sections laid down like sheets of paper: About slides up over the landing page, Campaigns over About, and Contact over Decks, with scalloped edges where they meet
+- The portfolio sections run on together in cream, separated by a small dotted rose traced from the Canva design's cross-stitch roses
+- Each section has its own layout: album covers, fan pages on drawn phones, flip cards for fan activations, a looping reel of tour posters, article cards styled after each outlet, Instagram-style grids and fanned slide decks
+- Details on demand: activation cards flip to reveal the write-up, and links open the full articles and decks
+- A side navigation on a gentle arc, after React Bits' [Option Wheel](https://reactbits.dev/components/option-wheel), whose highlight follows the scroll and changes colour with the section behind it; a compact menu on phones
+- Contact without exposing the email: it's only assembled when someone clicks Copy email, so it never appears in the page source
+- Responsive down to phone widths, and respects `prefers-reduced-motion` throughout
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- React + TypeScript
+- Vite
+- HTML & CSS
+- Motion, for React Bits' [Flip Card](https://reactbits.dev/micro/flip-card) on the activation cards
+- Album artwork from Apple's iTunes Search API, saved with the site
+- Fonts from Google Fonts
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Running locally
 
-```
-
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
-import { SECTIONS } from '../sections'
-import { layoutTop } from '../hooks/useCoverStack'
+import { SECTIONS } from '../../sections'
+import { layoutTop } from '../../hooks/useCoverStack'
 import './WheelNav.css'
 
 /**

@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import FlipCard from './FlipCard'
-import { TikTokMock } from './TikTokMock'
-import { SectionDivider } from './SectionDivider'
+import FlipCard from '../flip-card/FlipCard'
+import { TikTokMock } from '../tiktok-mock/TikTokMock'
+import { SectionDivider } from '../section-divider/SectionDivider'
 import './Activations.css'
 
 // Photo collages live in public/activations/. `fit: 'contain'` shows an image whole,

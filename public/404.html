@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#000000" />
+    <title>Page not found · Anna Cuciurean-Zapan</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400..700&family=Pinyon+Script&display=swap"
+    />
+    <!-- Served by Cloudflare for any address that doesn't exist (wrangler.jsonc), so it's
+         self-contained: the main site's palette and fonts, nothing from the app bundle. -->
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #000;
+        --pink: #ec5c9a;
+        --pink-soft: #f59ac2;
+        --pink-bg: #f45a99;
+        --text: #f8edf0;
+        --text-soft: #b9a3ab;
+        --scallop: 14px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Familjen Grotesk', system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        min-height: 100svh;
+        padding: 2rem 1.25rem calc(2rem + var(--scallop));
+        text-align: center;
+      }
+      /* The pink scalloped edge used between the site's sections. */
+      main::after {
+        content: '';
+        position: fixed;
+        inset: auto 0 0;
+        height: var(--scallop);
+        background: radial-gradient(circle at 50% 100%, var(--pink-bg) 70%, transparent 71%) 0 0 /
+          calc(var(--scallop) * 2) var(--scallop) repeat-x;
+      }
+      .code {
+        margin: 0;
+        color: var(--text-soft);
+        font-size: 0.95rem;
+        letter-spacing: 0.04em;
+      }
+      h1 {
+        margin: 0;
+        color: var(--pink);
+        font-family: 'Pinyon Script', 'Snell Roundhand', cursive;
+        font-weight: 400;
+        font-size: clamp(3.25rem, 11vw, 6rem);
+        line-height: 1.1;
+      }
+      p {
+        margin: 0;
+        max-width: 26rem;
+        color: var(--text-soft);
+        font-size: 1.05rem;
+        line-height: 1.5;
+      }
+      a {
+        margin-top: 1rem;
+        padding: 0.85rem 1.6rem;
+        border-radius: 999px;
+        background: var(--pink);
+        color: #000;
+        font-weight: 600;
+        text-decoration: none;
+        transition:
+          background-color 0.2s ease,
+          translate 0.2s ease;
+      }
+      a:hover {
+        background: var(--pink-soft);
+        translate: 0 -2px;
+      }
+      a:focus-visible {
+        outline: 3px solid var(--pink);
+        outline-offset: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="code">404</p>
+      <h1>Page not found</h1>
+      <p>This page doesn’t exist, but the rest of the portfolio does.</p>
+      <a href="/">Back to the portfolio</a>
+    </main>
+  </body>
+</html>

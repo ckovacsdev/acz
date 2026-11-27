@@ -1,4 +1,4 @@
-import { SectionDivider } from './SectionDivider'
+import { SectionDivider } from '../section-divider/SectionDivider'
 import './Fanpages.css'
 
 // Combined results across the fan accounts.

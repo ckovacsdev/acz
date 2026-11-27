@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { SECTIONS } from '../sections'
-import { useActiveSection } from '../hooks/useActiveSection'
-import { useSurfaceAt } from '../hooks/useSurfaceAt'
-import { WheelNav } from './WheelNav'
+import { SECTIONS } from '../../sections'
+import { useActiveSection } from '../../hooks/useActiveSection'
+import { useSurfaceAt } from '../../hooks/useSurfaceAt'
+import { WheelNav } from '../wheel-nav/WheelNav'
 import './Nav.css'
 
 const IDS = SECTIONS.map((s) => s.id)

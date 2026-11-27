@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
-import { WRITING } from '../contact'
-import { SectionDivider } from './SectionDivider'
+import { WRITING } from '../../contact'
+import { SectionDivider } from '../section-divider/SectionDivider'
 import './Publications.css'
 
 type Base = { title: string; href: string; image: string }

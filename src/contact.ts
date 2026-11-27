@@ -2,6 +2,9 @@
 
 export const INSTAGRAM_URL = 'https://www.instagram.com/aczapan/'
 
+/** Anna's resume, served from public/. */
+export const RESUME_URL = '/anna-cuciurean-zapan-resume.pdf'
+
 /** Where more of Anna's writing lives. */
 export const WRITING = [
   { label: 'The Luna Collective', href: 'https://www.thelunacollective.co/search?q=anna%20cuciurean-zapan' },

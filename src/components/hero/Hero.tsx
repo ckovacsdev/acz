@@ -1,4 +1,4 @@
-import { Doily } from './Doily'
+import { Doily } from '../doily/Doily'
 import './Hero.css'
 
 export function Hero() {
