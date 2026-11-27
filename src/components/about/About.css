@@ -7,7 +7,7 @@
   position: relative;
   /* The heading starts just below the top rose (roses are ~0.65 as tall as wide). The bottom
      rose sits in the empty corner beside the end of the text, so the bottom padding is just
-     breathing room; when everything stacks in one column, .about__body makes room instead. */
+     breathing room; where the text runs the full width, .about__body makes room instead. */
   --title-start: 0.72;
 
   padding: calc(var(--flower-top) + var(--flower-w) * var(--title-start))
@@ -52,24 +52,15 @@
 }
 
 .about__body {
-  display: grid;
-  gap: 2.75rem;
-  /* Single column: the facts end the section, so leave room for the bottom rose below them. */
+  /* Narrow screens: the text runs the full width, so leave room for the bottom rose below it. */
   margin-bottom: calc(var(--flower-w) * 0.6);
 }
 
-@container (min-width: 50rem) {
+/* Wider: the text column stops well short of the right edge, leaving the bottom rose its
+   own corner beside the last paragraph. */
+@container (min-width: 56rem) {
   .about__body {
-    grid-template-columns: minmax(0, 1fr) 19.5rem;
-    gap: clamp(3rem, 6cqi, 5rem);
-    align-items: start;
-    /* Two columns: the bottom rose sits in the empty corner under the facts. */
     margin-bottom: 0;
-  }
-
-  .about__facts {
-    /* Line the facts up with the body paragraphs rather than the lead. */
-    margin-top: 0.4rem;
   }
 }
 
@@ -97,43 +88,6 @@
   text-wrap: balance;
 }
 
-/* Quick facts, set with the dotted leaders from the landing page. */
-.about__facts {
-  margin: 0;
-  font-size: 1rem;
-}
-
-.about__fact {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  padding: 0.6rem 0;
-}
-
-.about__fact dt {
-  display: flex;
-  flex: 1;
-  align-items: baseline;
-  gap: 0.6rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.about__fact dt::after {
-  content: '';
-  flex: 1;
-  min-width: 1.25rem;
-  border-bottom: 2px dotted currentColor;
-  opacity: 0.55;
-  translate: 0 -0.2em;
-}
-
-/* Every row stays on one line so all the leaders read the same way. */
-.about__fact dd {
-  margin: 0;
-  white-space: nowrap;
-}
-
 .about ::selection {
   background: var(--ink-on-pink);
   color: var(--pink-bg);
@@ -155,12 +109,5 @@
 
   .about__copy p {
     font-size: 1.0625rem;
-  }
-}
-
-/* The smallest phones: shrink the facts a touch so the longest row still fits. */
-@media (max-width: 360px) {
-  .about__facts {
-    font-size: 0.875rem;
   }
 }

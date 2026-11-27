@@ -29,10 +29,6 @@ export function Contact() {
         <h2 id="contact-title" className="contact__title">
           Let’s Connect
         </h2>
-        {/* TODO: swap in Anna's own words. */}
-        <p className="contact__intro">
-          Working on a release, a tour or a fan campaign? I’d love to hear about it.
-        </p>
 
         <div className="contact__actions">
           <a
