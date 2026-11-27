@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { DotFlower } from './DotFlower'
-import { INSTAGRAM_URL, RESUME_URL, copyEmail } from '../contact'
+import { DotFlower } from '../dot-flower/DotFlower'
+import { INSTAGRAM_URL, RESUME_URL, copyEmail } from '../../contact'
 import './Contact.css'
 
 export function Contact() {

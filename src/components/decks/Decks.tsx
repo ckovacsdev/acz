@@ -1,4 +1,4 @@
-import { SectionDivider } from './SectionDivider'
+import { SectionDivider } from '../section-divider/SectionDivider'
 import './Decks.css'
 
 type Deck = {

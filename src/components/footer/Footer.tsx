@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { SECTIONS } from '../sections'
-import { INSTAGRAM_URL, WRITING, copyEmail } from '../contact'
+import { SECTIONS } from '../../sections'
+import { INSTAGRAM_URL, WRITING, copyEmail } from '../../contact'
 import './Footer.css'
 
 const newTab = { target: '_blank', rel: 'noopener noreferrer' } as const

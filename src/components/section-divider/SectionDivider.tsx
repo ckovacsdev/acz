@@ -1,4 +1,4 @@
-import { DotFlower } from './DotFlower'
+import { DotFlower } from '../dot-flower/DotFlower'
 import './SectionDivider.css'
 
 /**

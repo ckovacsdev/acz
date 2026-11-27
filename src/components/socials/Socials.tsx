@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
-import { SectionDivider } from './SectionDivider'
+import { SectionDivider } from '../section-divider/SectionDivider'
 import './Socials.css'
 
 type Feed = {
