@@ -1,0 +1,24 @@
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 1.6vw, 1.1rem);
+  /* Matches the room above it (see --flow-gap in index.css), so it sits centred. */
+  margin: 0 auto calc(var(--flow-gap) + var(--flow-top));
+  color: var(--pink);
+}
+
+.section-divider__rose {
+  flex: none;
+  width: clamp(64px, 6.5vw, 88px);
+  height: auto;
+}
+
+/* Rows of dots, like the dotted leaders used elsewhere on the page. */
+.section-divider__rule {
+  flex: none;
+  width: clamp(2.5rem, 8vw, 5.5rem);
+  height: 4px;
+  background: radial-gradient(circle, currentColor 1.4px, transparent 1.7px) 0 50% / 8px 4px
+    repeat-x;
+}

@@ -5,8 +5,11 @@ import { Campaigns } from './components/Campaigns'
 import { Fanpages } from './components/Fanpages'
 import { Activations } from './components/Activations'
 import { Tours } from './components/Tours'
+import { Publications } from './components/Publications'
+import { Socials } from './components/Socials'
+import { Decks } from './components/Decks'
+import { Footer } from './components/Footer'
 import { Contact } from './components/Contact'
-import { SECTIONS } from './sections'
 import { useInPageLinks } from './hooks/useInPageLinks'
 import { useCoverStack } from './hooks/useCoverStack'
 import { useRef } from 'react'
@@ -41,28 +44,17 @@ function App() {
         <Fanpages />
         <Activations />
         <Tours />
+        <Publications />
+        <Socials />
 
-        {/* The section before Contact pins in place while Contact slides up over it, like
-            About over the landing. */}
+        {/* Decks pins in place while Contact slides up over it, like About over the
+            landing. */}
         <div className="cover-stack" ref={contactStackRef}>
-          {/* Placeholder sections so the nav has somewhere to go. Each gets designed next. */}
-          {SECTIONS.filter(
-            (s) =>
-              !['about', 'work', 'fanpages', 'activations', 'tours', 'contact'].includes(s.id),
-          ).map((s) => (
-            <section key={s.id} id={s.id} className="section" aria-labelledby={`${s.id}-title`}>
-              <h2 id={`${s.id}-title`} className="section__title">
-                {s.label}
-              </h2>
-              <p className="section__placeholder">Coming soon: {s.hint}.</p>
-            </section>
-          ))}
+          <Decks />
           <Contact />
         </div>
       </main>
-      <footer className="footer">
-        <p>© {new Date().getFullYear()} Anna Cuciurean-Zapan</p>
-      </footer>
+      <Footer />
     </>
   )
 }

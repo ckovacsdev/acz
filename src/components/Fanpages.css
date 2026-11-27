@@ -1,7 +1,7 @@
 /* Continues straight on from Campaigns: same cream, no edge, a modest top gap. */
 .fanpages {
   container-type: inline-size;
-  padding: clamp(0.5rem, 2vw, 1.5rem) calc(var(--gutter) + var(--rail)) clamp(4.5rem, 8vw, 7rem);
+  padding: var(--flow-top) calc(var(--gutter) + var(--rail)) var(--flow-gap);
   background: var(--cream);
   color: var(--ink-on-pink);
 }

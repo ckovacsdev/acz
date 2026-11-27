@@ -1,8 +1,8 @@
 .wheel-nav {
   position: fixed;
   top: 50%;
-  /* Items curve outward as they leave the middle; leave room so the far ones stay on screen. */
-  right: calc(var(--gutter) + 2.75rem);
+  /* Items curve outward toward the ends of the list; leave room so those stay on screen. */
+  right: calc(var(--gutter) + 3rem);
   z-index: 50;
   display: none;
 
@@ -23,12 +23,24 @@
   --wheel-backing: var(--pink-bg);
 }
 
-/* On cream, the current item turns pink as it does over the black sections; the rest stay
-   black, since the near-white used over black wouldn't show on cream. */
+/* On pink, the current item turns white, the one colour that stands apart from both the
+   pink page and the black of the other items. A faint shadow keeps its edges crisp. */
+.wheel-nav__item[data-surface='pink'] {
+  --wheel-active: #fff;
+  --wheel-hover: #fff;
+}
+
+.wheel-nav__item[data-surface='pink'][aria-current] {
+  text-shadow: 0 1px 3px rgb(0 0 0 / 0.28);
+}
+
+/* On cream, the current item turns a deeper shade of the brand pink (the regular pink is
+   too faint on cream to read); the rest stay black, since the near-white used over black
+   wouldn't show on cream. */
 .wheel-nav__item[data-surface='cream'] {
   --wheel-backing: var(--cream);
-  --wheel-active: var(--pink);
-  --wheel-hover: var(--pink);
+  --wheel-active: var(--pink-deep);
+  --wheel-hover: var(--pink-deep);
 }
 
 .wheel-nav ul {
@@ -47,7 +59,8 @@
   padding: 0.15em 0.4em;
   border-radius: 0.5em;
   background: var(--wheel-backing, transparent);
-  font-size: 1.55rem;
+  /* Scales with the window height so all ten items fit, from short laptops to tall screens. */
+  font-size: clamp(1.05rem, 2.5vh, 1.3rem);
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0.005em;
@@ -61,11 +74,9 @@
       calc(var(--opacity, 1) * 100%),
     transparent
   );
-  filter: blur(var(--blur, 0));
   transform-origin: 100% 50%;
   will-change: transform;
   transition:
-    filter 0.2s ease,
     background-color 0.08s linear,
     color 0.08s linear;
 }
@@ -76,7 +87,6 @@
 
 .wheel-nav__item:hover,
 .wheel-nav__item:focus-visible {
-  filter: none;
   color: var(--wheel-hover);
   text-decoration: underline 1.5px;
   text-underline-offset: 0.25em;

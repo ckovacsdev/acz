@@ -1,3 +1,4 @@
+import { SectionDivider } from './SectionDivider'
 import './Tours.css'
 
 type Tour = { artist: string; tour: string; poster: string }
@@ -30,6 +31,7 @@ const COPIES = 3
 export function Tours() {
   return (
     <section id="tours" className="tours" data-surface="cream" aria-labelledby="tours-title">
+      <SectionDivider />
       <h2 id="tours-title" className="tours__title">
         Tours
       </h2>

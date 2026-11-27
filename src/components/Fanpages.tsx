@@ -1,3 +1,4 @@
+import { SectionDivider } from './SectionDivider'
 import './Fanpages.css'
 
 // Combined results across the fan accounts.
@@ -29,6 +30,7 @@ export function Fanpages() {
       data-surface="cream"
       aria-labelledby="fanpages-title"
     >
+      <SectionDivider />
       <h2 id="fanpages-title" className="fanpages__title">
         Fanpages
       </h2>

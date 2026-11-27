@@ -4,20 +4,26 @@ import { layoutTop } from '../hooks/useCoverStack'
 import './WheelNav.css'
 
 /**
- * Desktop side navigation: the section links sit on the rim of a wheel that curves
- * around the right edge (after React Bits' Option Wheel). The wheel is driven by the
- * page scroll, so the current section is always the one turned to the middle.
+ * Desktop side navigation: the section links sit on a gentle arc along the right edge
+ * (after React Bits' Option Wheel). Every item stays on screen: the arc only turns a little
+ * as the page scrolls, so the current item glides down the list rather than the whole
+ * list scrolling past. Text size and spacing scale with the window height (WheelNav.css),
+ * so the full list fits short laptop screens as well as tall ones.
  */
 
 const ITEMS = [{ id: 'top', label: 'Home' }, ...SECTIONS.map(({ id, label }) => ({ id, label }))]
 
-// Wheel shape, in em of the item font size.
-const SPACING = 1.75 // vertical distance between neighbouring items
-const TILT = (7 * Math.PI) / 180 // angle between neighbouring items
+// Arc shape, in em of the item font size.
+const SPACING = 1.7 // vertical distance between neighbouring items
+const TILT = (2.75 * Math.PI) / 180 // angle between neighbouring items
 const RADIUS = SPACING / TILT
-const BLUR = 0.08 // px of blur per step from the middle
-const FADE = 0.09 // opacity lost per step from the middle
-const MIN_OPACITY = 0.6
+// How far the arc turns toward the current item: 0 keeps the list still, 1 would turn the
+// current item all the way to the middle (and push the ends off screen).
+const TURN = 0.7
+const FADE = 0.06 // opacity lost per step from the current item
+const ACTIVE_GROW = 0.12 // how much larger the current item is drawn
+const MIN_OPACITY = 0.55
+const CENTRE = (ITEMS.length - 1) / 2
 const SMOOTHING = 180 // ms easing time constant
 
 export function WheelNav() {
@@ -61,13 +67,17 @@ export function WheelNav() {
     const render = () => {
       itemRefs.current.forEach((el, i) => {
         if (!el) return
-        const d = i - pos
+        // Place on the arc relative to the middle of the list, turned slightly toward the
+        // current item; fade and highlight by distance from the current item.
+        const d = i - CENTRE - (pos - CENTRE) * TURN
         const a = d * TILT
-        const dist = Math.abs(d)
+        const dist = Math.abs(i - pos)
         const x = RADIUS * (1 - Math.cos(a))
         const y = RADIUS * Math.sin(a)
-        el.style.transform = `translate(${x.toFixed(4)}em, calc(-50% + ${y.toFixed(4)}em)) rotate(${(-a).toFixed(4)}rad)`
-        el.style.setProperty('--blur', `${(dist * BLUR).toFixed(2)}px`)
+        // The current item is drawn a little larger, so it stands out on every background
+        // and its text is large enough to read in the paler highlight colours.
+        const grow = 1 + ACTIVE_GROW * Math.max(0, 1 - dist)
+        el.style.transform = `translate(${x.toFixed(4)}em, calc(-50% + ${y.toFixed(4)}em)) rotate(${(-a).toFixed(4)}rad) scale(${grow.toFixed(4)})`
         el.style.setProperty('--opacity', Math.max(MIN_OPACITY, 1 - dist * FADE).toFixed(3))
         // 1 when this item is in the middle, easing to 0 one step away.
         el.style.setProperty('--active', Math.max(0, 1 - dist).toFixed(3))
