@@ -4,6 +4,8 @@ Portfolio site for Anna Cuciurean-Zapan, a music industry professional working a
 
 The design started from Anna's portfolio in Canva and was adapted for the web with Claude Code: the same black, pink and cream look, rebuilt as a single page with real text, links and layouts that work from phones to wide screens.
 
+**Live:** https://aczapan.com
+
 ## Design
 
 | Desktop | Mobile |

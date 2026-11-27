@@ -34,9 +34,9 @@ jobs:
     needs: check
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    # Add `url: https://<domain>` under `environment` once the site has its domain.
     environment:
       name: production
+      url: https://aczapan.com
     concurrency:
       group: deploy-production
       cancel-in-progress: false
