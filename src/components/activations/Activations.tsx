@@ -48,12 +48,12 @@ const ACTIVATIONS: {
     title: 'TikTok Catalog Campaign',
     image: 'tiktok-catalog-campaign',
     clips: [
-      { still: 'tiktok-lock-in' },
-      // From @unsentlyricz_ and @lovesickmemes on TikTok.
+      // From @ourlovesongs.mp3, @unsentlyricz_ and @lovesickmemes on TikTok.
+      { still: 'tiktok-ourlovesongs', video: 'tiktok-ourlovesongs' },
       { still: 'tiktok-unsentlyricz', video: 'tiktok-unsentlyricz' },
       { still: 'tiktok-lovesickmemes', video: 'tiktok-lovesickmemes' },
     ],
-    alt: 'Three fan page TikToks from the campaign on mock phone screens: “time to lock in diva”, and two playing videos, “you can go ahead tell them” and “how it feels to be with the guy you thought would never like you”.',
+    alt: 'Three fan page TikToks from the campaign playing on mock phone screens, captioned “time to lock in diva”, “you can go ahead tell them” and “how it feels to be with the guy you thought would never like you”.',
     body: [
       'Fanpage activation to boost catalog streams for select group of 5 artists through the use of genre pages focusing on relationships, love and heartbreak.',
       'Created pitch deck for label, built 12 organic fanpages across TikTok and Instagram and posted 2x daily on each. Results generated over 5M impressions, coupled with paid ads (as of 11/19).',
