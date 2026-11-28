@@ -1,14 +1,6 @@
 import { DotFlower } from '../dot-flower/DotFlower'
 import './About.css'
 
-// Quick facts, drawn straight from the copy below, for people who skim.
-const FACTS = [
-  { term: 'Experience', value: '3+ years' },
-  { term: 'Master’s', value: 'Music business' },
-  { term: 'Bachelor’s', value: 'Journalism' },
-  { term: 'Focus', value: 'Marketing, social, PR, journalism' },
-]
-
 export function About() {
   return (
     <section id="about" className="about" data-surface="pink" aria-labelledby="about-title">
@@ -44,15 +36,6 @@ export function About() {
               the max.
             </p>
           </div>
-
-          <dl className="about__facts">
-            {FACTS.map((f) => (
-              <div key={f.term} className="about__fact">
-                <dt>{f.term}</dt>
-                <dd>{f.value}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </div>
     </section>
