@@ -64,6 +64,16 @@
   translate: 0 -50%;
 }
 
+/* A full-screen vertical video, filling the phone like TikTok does. */
+.tiktok__clip {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+}
+
 /* ---------- Interface overlay ---------- */
 
 .tiktok__ui {
@@ -165,5 +175,6 @@
   right: 0;
   bottom: 0;
   height: 2.5cqi;
-  background: linear-gradient(90deg, #fff 0 38%, rgb(255 255 255 / 0.3) 38%);
+  /* Follows the video as it plays (TikTokMock.tsx sets --progress); a fixed mark for stills. */
+  background: linear-gradient(90deg, #fff 0 var(--progress, 38%), rgb(255 255 255 / 0.3) var(--progress, 38%));
 }

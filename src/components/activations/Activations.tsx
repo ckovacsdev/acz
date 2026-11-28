@@ -6,13 +6,14 @@ import './Activations.css'
 
 // Photo collages live in public/activations/. `fit: 'contain'` shows an image whole,
 // letterboxed on the black card, for ones too tall or wide to crop to the shared shape.
-// `stills` shows video stills in mock TikTok phones instead of a single image.
+// `clips` shows mock TikTok phones instead of a single image: each a still, or a video
+// with its poster frame (all in public/activations/).
 const ACTIVATIONS: {
   title: string
   image: string
   alt: string
   fit?: 'contain'
-  stills?: string[]
+  clips?: { still: string; video?: string }[]
   body: string[]
 }[] = [
   {
@@ -46,8 +47,13 @@ const ACTIVATIONS: {
   {
     title: 'TikTok Catalog Campaign',
     image: 'tiktok-catalog-campaign',
-    stills: ['tiktok-tell-them', 'tiktok-lock-in', 'tiktok-heartbroken'],
-    alt: 'Three fan page TikToks, captioned “you can go ahead tell them”, “time to lock in diva” and “when you’re lowkey over him but still heartbroken”.',
+    clips: [
+      { still: 'tiktok-lock-in' },
+      // From @unsentlyricz_ and @lovesickmemes on TikTok.
+      { still: 'tiktok-unsentlyricz', video: 'tiktok-unsentlyricz' },
+      { still: 'tiktok-lovesickmemes', video: 'tiktok-lovesickmemes' },
+    ],
+    alt: 'Three fan page TikToks from the campaign on mock phone screens: “time to lock in diva”, and two playing videos, “you can go ahead tell them” and “how it feels to be with the guy you thought would never like you”.',
     body: [
       'Fanpage activation to boost catalog streams for select group of 5 artists through the use of genre pages focusing on relationships, love and heartbreak.',
       'Created pitch deck for label, built 12 organic fanpages across TikTok and Instagram and posted 2x daily on each. Results generated over 5M impressions, coupled with paid ads (as of 11/19).',
@@ -184,9 +190,12 @@ export function Activations() {
                   className="activation__face activation__face--front"
                   ref={(el) => void (faceRefs.current[i * 2] = el)}
                 >
-                  {a.stills ? (
+                  {a.clips ? (
                     <TikTokMock
-                      stills={a.stills.map((name) => `/activations/${name}.jpg`)}
+                      clips={a.clips.map((c) => ({
+                        still: `/activations/${c.still}.jpg`,
+                        video: c.video && `/activations/${c.video}.mp4`,
+                      }))}
                       label={a.alt}
                     />
                   ) : (
